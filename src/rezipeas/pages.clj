@@ -58,14 +58,30 @@
   []
   [:header] (enlive/content (nav-bar)))
 
+(enlive/defsnippet tag-input "templates/new_recipe.html"
+  [:.tag]
+  [tag]
+  [:.tag] (enlive/set-attr :value (:name tag)))
+
+(enlive/defsnippet ing-input "templates/new_recipe.html"
+  [:.ingredient]
+  [ingredient]
+  [:.quantity] (enlive/set-attr :value (:quantity ingredient))
+  [:.unit] (enlive/set-attr :value (:unit ingredient))
+  [:.ingname] (enlive/set-attr :value (:name ingredient)))
+
 (enlive/deftemplate edit-recipe "templates/new_recipe.html"
-  [recipe]
+  [recipe tags ingredients]
   [:title] (enlive/content "Rezept bearbeiten")
   [:#title] (enlive/content (str "Rezept bearbeiten: " (:name recipe)))
   [:header] (enlive/content (nav-bar))
   [:#nav-bar] (enlive/append (hidden-recipe-btn recipe "/recipies/delete/" "rubbish.png"))
   [:#name-form] (enlive/set-attr :value (:name recipe))
   [:#intro-form] (enlive/content (:intro recipe))
+  [:#tags] (enlive/content
+            (map tag-input tags))
+  [:#ingredients] (enlive/content
+                   (map ing-input ingredients))
   [:#desc-form] (enlive/content (:description recipe))
   [:#tip-form] (enlive/content (:tip recipe)))
 
@@ -103,8 +119,11 @@
 
 (defn edit-recipe-page[id]
   """Returns the pre-filled edit page for recipe with given id."""
-  (let [recipe (first (get-rec-by-id db {:id id}))]
-    (edit-recipe recipe)))
+  (let [recipe (first (get-rec-by-id db {:id id}))
+        rec_id (:id recipe)
+        tags (get-tags-for-rec db {:rec_id rec_id})
+        ingredients (get-rec-ingredients db {:rec_id rec_id})]
+    (edit-recipe recipe tags ingredients)))
 
 (defn show-recipe [id]
   """Returns the page displaying the recipe with given id."""
