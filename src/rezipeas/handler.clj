@@ -2,6 +2,7 @@
   (:require [compojure.core :refer :all]
             [compojure.route :as route]
             [clojure.java.io :as io]
+            [clojure.java.jdbc :refer [with-db-transaction]]
             [rezipeas.sql :refer :all]
             [rezipeas.pages :refer :all]
             [rezipeas.sanitize :refer :all]
@@ -10,34 +11,34 @@
 
 (db-setup)
 
-(defn save-new-ingredients [ingredients]
+(defn save-new-ingredients [tx ingredients]
   """Inserts or ignores ingredients into database."""
   (doseq [ing ingredients]
-      (insert-ingredient db {:name ing})))
+      (insert-ingredient tx {:name ing})))
 
-(defn save-new-tags [tags]
+(defn save-new-tags [tx tags]
   """Inserts or ignores tags into database."""
   (doseq [tag tags]
-    (insert-tag db {:name tag})))
+    (insert-tag tx {:name tag})))
 
-(defn save-rec-ing-relations [rec_id ingredients quantities units portions]
+(defn save-rec-ing-relations [tx rec_id ingredients quantities units portions]
   """Inserts or ignores recipe-ingredient relation into database.
      Needs recipe id."""
   (doseq [row (map vector ingredients quantities units)]
-    (let [ing_id (:id (first (get-ing-id db {:name (first row)})))
+    (let [ing_id (:id (first (get-ing-id tx {:name (first row)})))
           quantity (/ (second row) portions)
           unit (last row)]
       (insert-rec-ing
-       db
+       tx
        {:rec_id rec_id, :ing_id ing_id
         ,:quantity quantity, :unit unit}))))
 
-(defn save-tag-rec-relations [rec_id tags]
+(defn save-tag-rec-relations [tx rec_id tags]
   """Inserts or ignors recipe-tag relation into database.
      Needs recipe id from database."""
   (doseq [tag tags]
-    (let [tag_id (:id (first (get-tag-id db {:name tag})))]
-      (insert-tag-rec db {:tag_id tag_id, :rec_id rec_id}))))
+    (let [tag_id (:id (first (get-tag-id tx {:name tag})))]
+      (insert-tag-rec tx {:tag_id tag_id, :rec_id rec_id}))))
 
 
 (defn save-new-recipe [params]
@@ -58,13 +59,15 @@
                    nil)]
     (when file?
       (io/copy tempfile (io/file (str rootpath "img" (java.io.File/separator) filename))))
-    (insert-recipe db {:name name, :intro intro, :description description, :tip tip :portions portions :image_url filename})
-    (save-new-ingredients ingredients)
-    (save-new-tags tags)
-    (let [rec_id (:id (first (get-rec-id db {:name name})))]
+    (with-db-transaction [tx db]
+      (insert-recipe tx {:name name, :intro intro, :description description, :tip tip :portions portions :image_url filename})
+      (save-new-ingredients tx ingredients)
+      (save-new-tags tx tags)
       ;; need to cast portions to double, because hugsql does not convert ratios to reals
-      (save-rec-ing-relations rec_id ingredients quantities units (double portions))
-      (save-tag-rec-relations rec_id tags)
+      (let [rec_id (:id (first (get-rec-id tx {:name name})))]
+        (save-rec-ing-relations tx rec_id ingredients quantities units (double portions))
+        (save-tag-rec-relations tx rec_id tags)))
+    (let [rec_id (:id (first (get-rec-id db {:name name})))]
       (redirect (str "/recipies/" rec_id)))))
 
 (defn save-edit-recipe [id params]
@@ -91,13 +94,14 @@
                  "img"
                  (java.io.File/separator)
                  filename))))
-    (change-recipe db (assoc params :id id :image_url filename))
-    (save-new-ingredients ingredients)
-    (save-new-tags tags)
-    (delete-tagrec db {:rec_id id})
-    (delete-recing db {:rec_id id})
-    (save-rec-ing-relations id ingredients quantities units (double portions))
-    (save-tag-rec-relations id tags)
+    (with-db-transaction [tx db]
+      (change-recipe tx (assoc params :id id :image_url filename))
+      (save-new-ingredients tx ingredients)
+      (save-new-tags tx tags)
+      (delete-tagrec tx {:rec_id id})
+      (delete-recing tx {:rec_id id})
+      (save-rec-ing-relations tx id ingredients quantities units (double portions))
+      (save-tag-rec-relations tx id tags))
     (redirect (str "/recipies/" id))))
       
 (defroutes app-routes
