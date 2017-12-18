@@ -103,6 +103,19 @@
       (save-rec-ing-relations tx id ingredients quantities units (double portions))
       (save-tag-rec-relations tx id tags))
     (redirect (str "/recipies/" id))))
+
+(defn delete-recipe [id]
+  """Removes the recipe with given id from database and performs
+     cleanup operations."""
+  (do
+    (with-db-transaction [tx db]
+      (delete-rec-by-id tx {:id id})
+      (delete-tagrec tx {:rec_id id})
+      (delete-recing tx {:rec_id id})
+      (delete-orphan-tags tx)
+      (delete-orphan-ings tx))
+    (redirect "/")))
+    
       
 (defroutes app-routes
   (GET "/" [] (redirect "/recipies/new"))
@@ -112,6 +125,7 @@
   (GET "/recipies/:id" [id] (show-recipe id))
   (GET "/recipies/edit/:id" [id] (edit-recipe-page id))
   (GET "/recipies/delete/:id" [id] (show-delete-recipe id))
+  (POST "/recipies/delete/:id" [id] (delete-recipe id))
   (POST "/recipies/edit/:id" [id & params] (save-edit-recipe id params))
   (POST "/recipies/new" req (save-new-recipe (:params req)))
   (route/files "/img/" {:root (str rootpath "img" (java.io.File/separator))})
