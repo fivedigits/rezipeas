@@ -105,6 +105,18 @@
                #(list-item (:name %) hrefpre (:id %))
                items)))
 
+(enlive/deftemplate delete-view "templates/delete_item.html"
+  [base_url item]
+  [:title] (enlive/content (str (:name item) " löschen?"))
+  [:header] (enlive/content (nav-bar))
+  [:#delete-prompt] (enlive/content (str (:name item) " wirklich löschen?"))
+  [:#delete-form] (enlive/set-attr :action (str base_url (:id item))))
+
+(defn show-delete-recipe [id]
+  """Returns page with delete prompt for recipies."""
+  (let [recipe (first (get-rec-by-id db {:id id}))]
+    (delete-view "/recipies/delete/" recipe)))
+
 (defn show-all-recipies []
   """Returns <ul> of links to all recipies."""
   (let [recipies (get-recs db)]

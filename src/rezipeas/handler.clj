@@ -111,6 +111,7 @@
   (GET "/recipies/new" [] (new-recipe))
   (GET "/recipies/:id" [id] (show-recipe id))
   (GET "/recipies/edit/:id" [id] (edit-recipe-page id))
+  (GET "/recipies/delete/:id" [id] (show-delete-recipe id))
   (POST "/recipies/edit/:id" [id & params] (save-edit-recipe id params))
   (POST "/recipies/new" req (save-new-recipe (:params req)))
   (route/files "/img/" {:root (str rootpath "img" (java.io.File/separator))})
