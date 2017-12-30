@@ -3,6 +3,11 @@
 -- :doc Retrieve a recipe by name
 SELECT * FROM recipies WHERE instr(name,:name)>0;
 
+-- :name get-rec-id
+-- :command :query
+-- :doc Retrieve id for a given recipe
+SELECT id FROM recipies WHERE name = :name;
+
 -- :name get-recs
 -- :command :query
 -- :doc Get all recipies, ordered by name
@@ -17,6 +22,11 @@ SELECT * FROM tags ORDER BY name;
 -- :command :query
 -- :doc Get list of all ingredients
 SELECT * FROM ingredients ORDER BY name;
+
+-- :name get-ing-id
+-- :command :query
+-- :doc Get the id for a given ingredient
+SELECT id FROM ingredients WHERE name = :name;
 
 -- :name get-rec-ingredients
 -- :command :query

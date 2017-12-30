@@ -37,14 +37,23 @@
            (submit-button "Fertig")]]))
 
 (defn save-new-recipe [req]
-  (do
-    (let [params (:form-params req)
-        name (get params "name")
-        intro (get params "intro")
-        ingredients (get params "ingredients")
-        description (get params "description")
-        tip (get params "tip")]
-      (insert-recipe db {:name name, :intro intro, :description description, :tip tip}))
+  (let [params (get req :params)
+        name (get params :name)
+        ingredient (get params :ingredient)
+        quantity (get params :quantity)
+        unit (get params :unit)
+        intro (get params :intro)
+        tip (get params :tip)
+        description (get params :description)]
+    (insert-recipe db {:name name, :intro intro, :description description, :tip tip})
+    (doseq [ing ingredient]
+      (insert-ingredient db {:name ing}))
+    (doseq [row (map vector ingredient quantity unit)]
+      (let [ing_id (get-ing-id db {:name (first row)})
+            rec_id (get-rec-id db {:name name})
+            quantity (. Integer valueOf (second row))
+            unit (nth row 2)]
+        (insert-rec-ing db {:rec_id rec_id, :ing_id ing_id, :quantity quantity, :unit unit})))
     (redirect "/recipe/all")))
 
 (defn show-all-recipies []
@@ -53,8 +62,14 @@
     (html
      [:ul
       (reduce (fn [st rec] (concat st "<li>" (get rec :name) "</li>")) "" recipies)])))
+
+(defn show-all-ingredients []
+  """Returns <ul> of all ingredients."""
+  (let [ingredients (get-ingredients db)]
+    (html
+     [:ul
+      (reduce (fn [st ing] (concat st "<li>" (get ing :name) "</li>")) "" ingredients)])))
       
-  
 (defroutes app-routes
   (GET "/" [] (html [:h1 "Rezept des Tages"]))
   (GET "/recipe/all" [] (show-all-recipies))
@@ -62,6 +77,7 @@
   (GET "/recipe/edit" [] (html [:h1 "Rezept bearbeiten"]))
   (GET "/recipe/delete" [] (html [:h1 "Rezept löschen"]))
   (POST "/recipe/new" req (save-new-recipe req))
+  (GET "/ingredients" [] (show-all-ingredients))
   (route/not-found "Not Found"))
 
 (def app

@@ -6,7 +6,7 @@ INSERT INTO recipies (name, intro, description, tip)
 -- :name insert-tag :! :n
 -- :doc Insert a new tag into table tags
 INSERT INTO tags (name)
-       VALUES (:tag);
+       VALUES (:name);
 
 -- :name insert-ingredient :! :n
 -- :doc Inserts a new ingredients
