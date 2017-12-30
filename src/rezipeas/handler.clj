@@ -29,7 +29,7 @@
            [:div#ingredients
             [:button {:type "button" :onclick "newIngredient()"} "+ Zutat"]
             [:div.ingredient
-             [:input {:type "text" :placeholder "Zahl" :name "quantity"}]
+             [:input {:type "number" :step "0.01" :placeholder "0.0" :name "quantity"}]
              [:input {:type "text" :placeholder "Einheit" :name "unit"}]
              [:input {:type "text" :placeholder "Zutat" :name "ingredient"}]]]
            [:textarea {:placeholder "Rezept" :name "description"}]
