@@ -1,0 +1,37 @@
+(ns rezipeas.handler
+  (:require [compojure.core :refer :all]
+            [compojure.route :as route]
+            [hiccup.core :refer :all]
+            [hiccup.form :refer :all]
+            [ring.middleware.defaults :refer [wrap-defaults site-defaults]]))
+
+(def recipies-data (agent {}))
+  
+(defn new-recipe []
+  (html [:h1 "Neues Rezept"]
+         [:main
+          [:form {:method "post" :action "/recipe/new"}
+           (text-field :name)
+           (text-field :intro)
+           (text-field :ingredients)
+           (text-area :description)
+           (submit-button "Fertig")]]))
+
+(defn save-new-recipe [req]
+  (let [params (:form-params req)]
+    (html [:h1 (get params "name")]
+          [:p (get params "intro")]
+          [:p (get params "ingredients")]
+          [:p (get params "description")])))
+  
+(defroutes app-routes
+  (GET "/" [] (html [:h1 "Rezept des Tages"]))
+  (GET "/recipe/new" [] (new-recipe))
+  (GET "/recipe/edit" [] (html [:h1 "Rezept bearbeiten"]))
+  (GET "/recipe/delete" [] (html [:h1 "Rezept löschen"]))
+  (POST "/recipe/new" req (save-new-recipe req))
+  (route/not-found "Not Found"))
+
+(def app
+  ;; enable anti-forgery later
+  (wrap-defaults app-routes (assoc-in site-defaults [:security :anti-forgery] false)))
