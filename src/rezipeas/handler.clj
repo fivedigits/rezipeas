@@ -4,19 +4,36 @@
             [hiccup.core :refer :all]
             [hiccup.form :refer :all]
             [rezipeas.sql :refer :all]
+            [ring.util.response :refer :all]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]))
 
 (db-setup)
 
 (defn new-recipe []
   (html [:header [:h1 "Neues Rezept"]]
+        [:script "function newIngredient() {
+                  var ings = document.getElementsByClassName(\"ingredient\");
+                  var ing = ings[0];
+                  var newing = ing.cloneNode(true);
+                  var i;
+                  for (i = 0; i < 3; i++) {
+                      newing.childNodes[i].value = \"\";
+                  }
+                  var ingform = document.getElementById(\"ingredients\");
+                  ingform.appendChild(newing);
+                  }"]
          [:main
           [:form {:method "post" :action "/recipe/new"}
-           (text-field :name)
-           (text-area :intro)
-           (text-field :ingredients)
-           (text-area :description)
-           (text-area :tip)
+           [:input {:type "text" :placeholder "Name des Rezepts" :name "name"}]
+           [:textarea {:placeholder "Einleitende Worte" :name "intro"}]
+           [:div#ingredients
+            [:button {:type "button" :onclick "newIngredient()"} "+ Zutat"]
+            [:div.ingredient
+             [:input {:type "text" :placeholder "Zahl" :name "quantity"}]
+             [:input {:type "text" :placeholder "Einheit" :name "unit"}]
+             [:input {:type "text" :placeholder "Zutat" :name "ingredient"}]]]
+           [:textarea {:placeholder "Rezept" :name "description"}]
+           [:textarea {:placeholder "Tip" :name "tip"}]
            (submit-button "Fertig")]]))
 
 (defn save-new-recipe [req]
