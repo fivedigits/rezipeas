@@ -23,8 +23,7 @@
     <main>
       <form action="/recipies/new" method="post">
 	<input type="text" placeholder="Name des Rezepts" name="name" required/>
-        <textarea cols="30" placeholder="Einleitende Worte" name="intro" rows="10" required>
-        </textarea>
+        <textarea name="intro" placeholder="Einleitende Worte" required></textarea>
         <div id="ingredients">
           <button type="button" onclick="newIngredient()">+ Zutat</button>
           <div class="ingredient">
@@ -33,10 +32,8 @@
             <input name="ingredient" type="text" placeholder="Zutat" required/>
 	  </div>
 	</div>
-        <textarea cols="30" name="description" rows="10" placeholder="Rezept" required>
-        </textarea>
-        <textarea cols="30" name="tip" placeholder="Tip" rows="10">
-        </textarea>
+        <textarea name="description" placeholder="Rezept" required></textarea>
+        <textarea name="tip" placeholder="Tip"></textarea>
         <input type="submit"/>
       </form>
     </main>
