@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Neues Rezept</title>
+    <script>
+      function newIngredient() {
+          var ings = document.getElementsByClassName("ingredient");
+          var ing = ings[0];
+          var newing = ing.cloneNode(true);
+          var i;
+          for (i = 0; i < 3; i++) {
+              newing.childNodes[i].value = '';
+          }
+          var ingform = document.getElementById("ingredients");
+          ingform.appendChild(newing);
+          }
+    </script>
+  </head>
+  <body>
+    <header>
+      <h1 id="title">Neues Rezept</h1>
+    </header>
+    <main>
+      <form action="/recipies/new" method="post">
+	<input type="text" placeholder="Name des Rezepts" name="name" required/>
+        <textarea cols="30" placeholder="Einleitende Worte" name="intro" rows="10" required>
+        </textarea>
+        <div id="ingredients">
+          <button type="button" onclick="newIngredient()">+ Zutat</button>
+          <div class="ingredient">
+            <input name="quantity" type="number" step="0.01" placeholder="0.0" required/>
+            <input name="unit" type="text" placeholder="Einheit" required/>
+            <input name="ingredient" type="text" placeholder="Zutat" required/>
+	  </div>
+	</div>
+        <textarea cols="30" name="description" rows="10" placeholder="Rezept" required>
+        </textarea>
+        <textarea cols="30" name="tip" placeholder="Tip" rows="10">
+        </textarea>
+        <input type="submit"/>
+      </form>
+    </main>
+  </body>
+</html>

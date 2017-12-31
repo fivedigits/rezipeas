@@ -1,7 +1,34 @@
 (ns rezipeas.pages
   (:require [hiccup.core :refer :all]
             [hiccup.form :refer :all]
+            [net.cgrand.enlive-html :as enlive]
             [rezipeas.sql :refer :all]))
+
+(enlive/deftemplate random-menu "templates/random_menu.html"
+  [menu]
+  [:body] (enlive/content (:body menu)))
+
+(enlive/deftemplate new-recipe "templates/new_recipe.html"
+  [])
+
+(enlive/defsnippet list-item "templates/list_item.html"
+  [:li (enlive/nth-of-type 1)]
+  [text href]
+  [:a] (enlive/do->
+        (enlive/content text)
+        (enlive/set-attr :href href)))
+
+(enlive/deftemplate list-view "templates/list.html"
+  [title href items]
+  [:title (enlive/content title)]
+  [:.title (enlive/content title)]
+  [:ul (enlive/nth-of-type 1)] (enlive/content
+                                (map
+                                 #(list-item % href)
+                                 items)))
+
+(defn random-menu-page []
+  (random-menu {:body "hi there"}))
 
 (defn show-all-recipies []
   """Returns <ul> of links to all recipies."""
@@ -23,31 +50,8 @@
        ""
        ingredients)])))
 
-(defn new-recipe []
+(defn new-recipe-page []
   """Returns the page containing the form for new recipies."""
-  (html [:header [:h1 "Neues Rezept"]]
-        [:script "function newIngredient() {
-                  var ings = document.getElementsByClassName(\"ingredient\");
-                  var ing = ings[0];
-                  var newing = ing.cloneNode(true);
-                  var i;
-                  for (i = 0; i < 3; i++) {
-                      newing.childNodes[i].value = \"\";
-                  }
-                  var ingform = document.getElementById(\"ingredients\");
-                  ingform.appendChild(newing);
-                  }"]
-         [:main
-          [:form {:method "post" :action "/recipe/new"}
-           [:input {:type "text" :placeholder "Name des Rezepts" :name "name"}]
-           [:textarea {:placeholder "Einleitende Worte" :name "intro"}]
-           [:div#ingredients
-            [:button {:type "button" :onclick "newIngredient()"} "+ Zutat"]
-            [:div.ingredient
-             [:input {:type "number" :step "0.01" :placeholder "0.0" :name "quantity"}]
-             [:input {:type "text" :placeholder "Einheit" :name "unit"}]
-             [:input {:type "text" :placeholder "Zutat" :name "ingredient"}]]]
-           [:textarea {:placeholder "Rezept" :name "description"}]
-           [:textarea {:placeholder "Tip" :name "tip"}]
-           (submit-button "Fertig")]]))
+  (new-recipe))
 
+  

@@ -5,6 +5,7 @@
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [compojure "1.5.1"]
                  [hiccup "1.0.5"]
+                 [enlive "1.1.6"]
                  [com.layerware/hugsql "0.4.8"]
                  [org.xerial/sqlite-jdbc "3.21.0.1"]
                  [ring/ring-defaults "0.2.1"]]

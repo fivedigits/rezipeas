@@ -9,6 +9,7 @@
 (db-setup)
 
 (defn save-new-recipe [req]
+  """Commits a new recipe to the database."""
   (let [params (get req :params)
         name (get params :name)
         ingredient (get params :ingredient)
@@ -23,7 +24,7 @@
     (doseq [row (map vector ingredient quantity unit)]
       (let [ing_id (get-ing-id db {:name (first row)})
             rec_id (get-rec-id db {:name name})
-            quantity (. Integer valueOf (second row))
+            quantity (second row)
             unit (nth row 2)]
         (insert-rec-ing db {:rec_id rec_id, :ing_id ing_id, :quantity quantity, :unit unit})))
     (redirect "/recipies")))
@@ -31,10 +32,9 @@
       
 (defroutes app-routes
   (GET "/" [] (redirect "/recipies"))
+  (GET "/test" [] (random-menu-page))
   (GET "/recipies" [] (show-all-recipies))
   (GET "/recipies/new" [] (new-recipe))
-  (GET "/recipies/edit" [] (html [:h1 "Rezept bearbeiten"]))
-  (GET "/recipies/delete" [] (html [:h1 "Rezept löschen"]))
   (POST "/recipies/new" req (save-new-recipe req))
   (GET "/ingredients" [] (show-all-ingredients))
   (route/not-found "Not Found"))
