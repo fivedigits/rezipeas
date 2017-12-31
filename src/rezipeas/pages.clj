@@ -8,14 +8,20 @@
   (let [recipies (get-recs db)]
     (html
      [:ul
-      (reduce (fn [st rec] (concat st "<li>" (get rec :name) "</li>")) "" recipies)])))
+      (reduce
+       (fn [st rec] (concat st "<li>" (get rec :name) "</li>"))
+       ""
+       recipies)])))
 
 (defn show-all-ingredients []
   """Returns <ul> of all ingredients."""
   (let [ingredients (get-ingredients db)]
     (html
      [:ul
-      (reduce (fn [st ing] (concat st "<li>" (get ing :name) "</li>")) "" ingredients)])))
+      (reduce
+       (fn [st ing] (concat st "<li>" (get ing :name) "</li>"))
+       ""
+       ingredients)])))
 
 (defn new-recipe []
   """Returns the page containing the form for new recipies."""

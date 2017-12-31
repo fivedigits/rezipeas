@@ -1,8 +1,6 @@
 (ns rezipeas.handler
   (:require [compojure.core :refer :all]
             [compojure.route :as route]
-            [hiccup.core :refer :all]
-            [hiccup.form :refer :all]
             [rezipeas.sql :refer :all]
             [rezipeas.pages :refer :all]
             [ring.util.response :refer :all]
@@ -28,16 +26,16 @@
             quantity (. Integer valueOf (second row))
             unit (nth row 2)]
         (insert-rec-ing db {:rec_id rec_id, :ing_id ing_id, :quantity quantity, :unit unit})))
-    (redirect "/recipe/all")))
+    (redirect "/recipies")))
 
       
 (defroutes app-routes
-  (GET "/" [] (html [:h1 "Rezept des Tages"]))
-  (GET "/recipe/all" [] (show-all-recipies))
-  (GET "/recipe/new" [] (new-recipe))
-  (GET "/recipe/edit" [] (html [:h1 "Rezept bearbeiten"]))
-  (GET "/recipe/delete" [] (html [:h1 "Rezept löschen"]))
-  (POST "/recipe/new" req (save-new-recipe req))
+  (GET "/" [] (redirect "/recipies"))
+  (GET "/recipies" [] (show-all-recipies))
+  (GET "/recipies/new" [] (new-recipe))
+  (GET "/recipies/edit" [] (html [:h1 "Rezept bearbeiten"]))
+  (GET "/recipies/delete" [] (html [:h1 "Rezept löschen"]))
+  (POST "/recipies/new" req (save-new-recipe req))
   (GET "/ingredients" [] (show-all-ingredients))
   (route/not-found "Not Found"))
 
