@@ -14,6 +14,19 @@
           var ingform = document.getElementById("ingredients");
           ingform.appendChild(newing);
           }
+      // needs refactoring, double implementation of one function
+      function rmIngredient() {
+          var ings = document.getElementById("ingredients");
+	  if (document.getElementsByClassName("ingredient").length > 1) {
+              ings.removeChild(ings.lastChild);
+	  }
+      }
+      function rmTag() {
+          var tags = document.getElementById("tags");
+          if (document.getElementsByClassName("tag").length > 1) {
+              tags.removeChild(tags.lastChild);
+	  }
+      }
       function newTag() {
           var tags = document.getElementsByClassName("tag");
           var tag = tags[0];
@@ -22,7 +35,6 @@
           var tagform = document.getElementById("tags");
           tagform.appendChild(newtag);
           }
-
     </script>
   </head>
   <body>
@@ -34,8 +46,9 @@
 	<input type="text" placeholder="Name des Rezepts" name="name" required/>
         <textarea name="intro" placeholder="Einleitende Worte" required></textarea>
 	<div id="tags">
-	  <button type="button" onclick="newTag()">+ Tag</button>
-	  <input class="tag" name="tag" type="text" placeholder="Tag" required/>
+	  <button type="button" onclick="newTag()">+ Schlagwort</button>
+	  <button type="button" onclick="rmTag()">- Schlagwort</button>
+	  <input class="tag" name="tag" type="text" placeholder="Schlagwort" required/>
 	</div>
 	<div>
 	  <h4>Portionen</h4>
@@ -43,6 +56,7 @@
 	</div>
         <div id="ingredients">
           <button type="button" onclick="newIngredient()">+ Zutat</button>
+	  <button type="button" onclick="rmIngredient()">- Zutat</button>
           <div class="ingredient">
             <input name="quantity" type="number" step="0.01" placeholder="0.0" required/>
             <input name="unit" type="text" placeholder="Einheit" required/>
@@ -51,7 +65,7 @@
 	</div>
         <textarea name="description" placeholder="Rezept" required></textarea>
         <textarea name="tip" placeholder="Tip"></textarea>
-        <input type="submit"/>
+        <input type="submit" value="Fertig"/>
       </form>
     </main>
   </body>
