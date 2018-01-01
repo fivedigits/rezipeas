@@ -6,7 +6,7 @@
   """Wraps single objects in a list and returns the map of fun."""
   (map
    fun
-   (if (seq? object)
+   (if (sequential? object)
     object
     (list object))))
 
