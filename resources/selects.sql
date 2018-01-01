@@ -18,6 +18,11 @@ SELECT * FROM recipies ORDER BY name;
 -- :doc Get list of all tags
 SELECT * FROM tags ORDER BY name;
 
+-- :name get-tag-id
+-- :command :query
+-- :doc Get id of tag given by name
+SELECT id FROM tags WHERE name = :name;
+
 -- :name get-ingredients
 -- :command :query
 -- :doc Get list of all ingredients
