@@ -55,13 +55,14 @@
     (save-new-tags tags)
     (let [rec_id (:id (first (get-rec-id db {:name name})))]
       (save-rec-ing-relations rec_id ingredients quantities units portions)
-      (save-tag-rec-relations rec_id tags))
-    (redirect "/recipies")))
+      (save-tag-rec-relations rec_id tags)
+      (redirect (str "/recipies/" rec_id)))))
       
 (defroutes app-routes
   (GET "/" [] (redirect "/recipies"))
   (GET "/recipies" [] (show-all-recipies))
   (GET "/recipies/new" [] (new-recipe))
+  (GET "/recipies/:id" [id] (show-recipe id))
   (POST "/recipies/new" req (save-new-recipe (:params req)))
   (route/not-found "Not Found"))
 
