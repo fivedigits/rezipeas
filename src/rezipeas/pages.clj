@@ -66,6 +66,6 @@
         rec_id (:id recipe)
         tags (get-tags-for-rec db {:rec_id rec_id})
         ingredients (get-rec-ingredients db {:rec_id rec_id})]
-    (recipe-view (merge {:tip ""} recipe) tags ingredients)))
+    (recipe-view recipe tags ingredients)))
 
   

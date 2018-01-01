@@ -46,7 +46,7 @@
         quantities (sanitize-quantities (:quantity params))
         units (sanitize-units (:unit params))
         intro (:intro params)
-        tip (:tip params)
+        tip (let [tip (:tip params)] (if tip tip ""))
         description (:description params)
         portions (sanitize-portions (:portions params))
         tags (sanitize-tags (:tag params))]
