@@ -14,6 +14,15 @@
           var ingform = document.getElementById("ingredients");
           ingform.appendChild(newing);
           }
+      function newTag() {
+          var tags = document.getElementsByClassName("tag");
+          var tag = tags[0];
+	  var newtag = tag.cloneNode(true);
+	  newtag.value= '';	  
+          var tagform = document.getElementById("tags");
+          tagform.appendChild(newtag);
+          }
+
     </script>
   </head>
   <body>
@@ -24,6 +33,14 @@
       <form action="/recipies/new" method="post">
 	<input type="text" placeholder="Name des Rezepts" name="name" required/>
         <textarea name="intro" placeholder="Einleitende Worte" required></textarea>
+	<div id="tags">
+	  <button type="button" onclick="newTag()">+ Tag</button>
+	  <input class="tag" name="tag" type="text" placeholder="Tag" required/>
+	</div>
+	<div>
+	  <h4>Portionen</h4>
+	  <input name="portions" type="number" step="1.0" value="4" required/>
+	</div>
         <div id="ingredients">
           <button type="button" onclick="newIngredient()">+ Zutat</button>
           <div class="ingredient">
