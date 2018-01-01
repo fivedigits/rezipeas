@@ -59,7 +59,7 @@
       (redirect (str "/recipies/" rec_id)))))
       
 (defroutes app-routes
-  (GET "/" [] (redirect "/recipies"))
+  (GET "/" [] (redirect "/recipies/new"))
   (GET "/recipies" [] (show-all-recipies))
   (GET "/recipies/new" [] (new-recipe))
   (GET "/recipies/:id" [id] (show-recipe id))

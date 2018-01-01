@@ -3,7 +3,7 @@
   (:gen-class))
 
 (def db {:dbtype "sqlite"
-         :dbname "test.db"})
+         :dbname (str (. System getProperty "user.dir") (java.io.File/separator) "/kochbuch.db")})
 
 (hug/def-db-fns "db-setup.sql")
 (hug/def-db-fns "selects.sql")
