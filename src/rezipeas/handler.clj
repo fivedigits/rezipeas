@@ -32,11 +32,9 @@
       
 (defroutes app-routes
   (GET "/" [] (redirect "/recipies"))
-  (GET "/test" [] (random-menu-page))
   (GET "/recipies" [] (show-all-recipies))
   (GET "/recipies/new" [] (new-recipe))
   (POST "/recipies/new" req (save-new-recipe req))
-  (GET "/ingredients" [] (show-all-ingredients))
   (route/not-found "Not Found"))
 
 (def app
