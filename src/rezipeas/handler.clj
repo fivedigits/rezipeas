@@ -51,11 +51,14 @@
         description (:description params)
         portions (sanitize-portions (:portions params))
         tags (sanitize-tags (:tag params))
+        file? (not (empty? (get-in params [:picture :filename])))
         tempfile (get-in params [:picture :tempfile])
-        fileext (get-file-extension (get-in params [:picture :filename]))]
-    (when tempfile
-      (io/copy tempfile (io/file (str rootpath "img" (java.io.File/separator) name "." fileext))))
-    (insert-recipe db {:name name, :intro intro, :description description, :tip tip})
+        filename (if file? 
+                   (str name (get-file-extension (get-in params [:picture :filename])))
+                   nil)]
+    (when file?
+      (io/copy tempfile (io/file (str rootpath "img" (java.io.File/separator) filename))))
+    (insert-recipe db {:name name, :intro intro, :description description, :tip tip :portions portions :image_url filename})
     (save-new-ingredients ingredients)
     (save-new-tags tags)
     (let [rec_id (:id (first (get-rec-id db {:name name})))]
@@ -70,6 +73,7 @@
   (GET "/recipies/:id" [id] (show-recipe id))
   (POST "/recipies/new" req (save-new-recipe (:params req)))
   (route/files "/img/" {:root (str rootpath "img" (java.io.File/separator))})
+  (route/resources "/assets/")
   (route/not-found "Not Found"))
 
 (def app

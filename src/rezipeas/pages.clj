@@ -21,6 +21,7 @@
   [recipe tags ingredients]
   [:title] (enlive/content (:name recipe))
   [:header [:h1]] (enlive/content (:name recipe))
+  [:#picture] (enlive/set-attr :src (if (:image_url recipe) (str "/img/" (:image_url recipe)) "/assets/default.jpg"))
   [:#intro] (enlive/content (:intro recipe))
   [:#tags] (enlive/content
             (map tag tags))

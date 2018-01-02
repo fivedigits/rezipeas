@@ -1,7 +1,7 @@
 -- :name insert-recipe :! :n
 -- :doc Insert a recipe into table recipies
-INSERT OR IGNORE INTO recipies (name, intro, description, tip)
-       VALUES (:name, :intro, :description, :tip);
+INSERT OR IGNORE INTO recipies (name, intro, description, tip, portions, image_url)
+       VALUES (:name, :intro, :description, :tip, :portions, :image_url);
 
 -- :name insert-tag :! :n
 -- :doc Insert a new tag into table tags

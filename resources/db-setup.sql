@@ -7,6 +7,8 @@ CREATE TABLE IF NOT EXISTS recipies (id INTEGER PRIMARY KEY,
 	description TEXT NOT NULL,
 	tip TEXT,
 	views INTEGER DEFAULT 0,
+	portions INTEGER DEFAULT 1,
+	image_url TEXT,
 	CONSTRAINT unique_name UNIQUE (name));
 
 -- :name create-tag-table
