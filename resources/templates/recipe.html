@@ -2,28 +2,32 @@
 <html>
   <head>
     <title>Rezept</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/recipe.css">
   </head>
   <body>
-    <header>
-      <h1>Rezept</h1>
-    </header>
-    <img id="picture" src="#" alt="Ein Bild des Gerichts">
     <main>
-      <p id="intro">Einleitung</p>
-      <h3>Schlagwörter</h3>
-      <div id="tags">
-        <span>Tag</span>
-      </div>
-      <h3>Zutaten</h3>
-      <div id="ingredients">
-        <div class="ingredient">
-          <span class="quantity">Zahl</span>
-          <span class="unit">Einheit</span>
-          <span class="name">Name</span>
+    <div class="container">
+      <div class="container-head">
+	<h1 id="title">Rezept</h1>
+	<div class="container-vert" id="tags">
+          <span class="tag">Tag</span>
 	</div>
+	<p id="intro">Einleitung</p>
       </div>
-      <p id="description">Beschreibung</p>
-      <p id="tip">Tip</p>
+      <img id="picture" src="#" alt="Ein Bild des Gerichts">
+    </div>
+    <h2 class="heading">Zutaten</h3>
+    <div id="ingredients">
+      <div class="ingredient">
+        <span class="quantity">Zahl</span>
+        <span class="unit">Einheit</span>
+        <span class="name">Name</span>
+      </div>
+    </div>
+    <h2 class="heading">Zubereitung</h3>
+    <p id="description">Beschreibung</p>
+    <p id="tip">Tip</p>
     </main>
   </body>
 </html>
