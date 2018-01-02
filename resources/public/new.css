@@ -1,0 +1,40 @@
+body {
+    max-width: 980px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+
+#name-form {
+    width: 30em;
+}
+
+#intro-form {
+    width: 100%;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    min-height: 10em;
+}
+
+.toggle-container {
+    padding: 0.5em;
+}
+
+#portions {
+    padding: 0.5em;
+    display-style: inline-block;
+}
+
+#desc-form {
+    width: 100%;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    min-height: 10em;
+}
+
+#tip-form {
+    width: 100%;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    min-height: 10em;
+}

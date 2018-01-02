@@ -2,6 +2,8 @@
 <html>
   <head>
     <title>Neues Rezept</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/new.css">
     <script>
       function newIngredient() {
           var ings = document.getElementsByClassName("ingredient");
@@ -38,36 +40,45 @@
     </script>
   </head>
   <body>
-    <header>
-      <h1 id="title">Neues Rezept</h1>
-    </header>
     <main>
+      <header>
+	<h1 id="title">Neues Rezept</h1>
+      </header>
       <form action="/recipies/new" method="post" enctype="multipart/form-data">
-	<input type="text" placeholder="Name des Rezepts" name="name" required/>
-        <textarea name="intro" placeholder="Einleitende Worte" required></textarea>
-	<input name="picture" type="file" accept="image/jpeg,image/png">
+	<input id="name-form" type="text" placeholder="Name des Rezepts" name="name" required/>
+	<br>
+        <textarea id="intro-form" name="intro" placeholder="Einleitende Worte" required></textarea>
+	<br>
+	<input id="pic-form" name="picture" type="file" accept="image/jpeg,image/png">
+	<br>
+	<div class="toggle-container">
+	  <button class="toggle" type="button" onclick="newTag()">+ Schlagwort</button>
+	  <button class="toggle" type="button" onclick="rmTag()">- Schlagwort</button>
+	</div>  
 	<div id="tags">
-	  <button type="button" onclick="newTag()">+ Schlagwort</button>
-	  <button type="button" onclick="rmTag()">- Schlagwort</button>
 	  <input class="tag" name="tag" type="text" placeholder="Schlagwort" required/>
 	</div>
-	<div>
+	<div id="portions">
 	  <label>Portionen
-	  <input name="portions" type="number" step="1.0" value="4" required/>
+	    <input name="portions" type="number" step="1.0" value="4" required/>
 	  </label>
 	</div>
+	<div class="toggle-container">
+	  <button class="toggle" type="button" onclick="newIngredient()">+ Zutat</button>
+	  <button class="toggle" type="button" onclick="rmIngredient()">- Zutat</button>
+	</div>
         <div id="ingredients">
-          <button type="button" onclick="newIngredient()">+ Zutat</button>
-	  <button type="button" onclick="rmIngredient()">- Zutat</button>
           <div class="ingredient">
             <input name="quantity" type="number" step="0.01" placeholder="0.0" required/>
             <input name="unit" type="text" placeholder="Einheit" required/>
             <input name="ingredient" type="text" placeholder="Zutat" required/>
 	  </div>
 	</div>
-        <textarea name="description" placeholder="Rezept" required></textarea>
-        <textarea name="tip" placeholder="Tip (Optional)"></textarea>
-        <input type="submit" value="Fertig"/>
+        <textarea id="desc-form" name="description" placeholder="Rezept" required></textarea>
+	<br>
+        <textarea id="tip-form" name="tip" placeholder="Tip (Optional)"></textarea>
+	<br>
+        <input id="submit-button" type="submit" value="Fertig"/>
       </form>
     </main>
   </body>
