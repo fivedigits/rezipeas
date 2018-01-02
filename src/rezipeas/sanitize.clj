@@ -1,5 +1,5 @@
 (ns rezipeas.sanitize
-  (:require [clojure.string :refer [capitalize, trim]]
+  (:require [clojure.string :refer [capitalize, trim, split]]
             [clojure.edn :as edn]))
 
 (defn wrap-and-sanitize [fun object]
@@ -30,3 +30,8 @@
   """Converts to number."""
   (edn/read-string portions))
 
+(defn get-file-extension [filename]
+  """Gets the file extension like .jpg, given the filename."""
+  (-> filename
+       (split (re-pattern "\\."))
+       (last)))

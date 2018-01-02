@@ -1,6 +1,7 @@
 (ns rezipeas.handler
   (:require [compojure.core :refer :all]
             [compojure.route :as route]
+            [clojure.java.io :as io]
             [rezipeas.sql :refer :all]
             [rezipeas.pages :refer :all]
             [rezipeas.sanitize :refer :all]
@@ -49,7 +50,11 @@
         tip (let [tip (:tip params)] (if tip tip ""))
         description (:description params)
         portions (sanitize-portions (:portions params))
-        tags (sanitize-tags (:tag params))]
+        tags (sanitize-tags (:tag params))
+        tempfile (get-in params [:picture :tempfile])
+        fileext (get-file-extension (get-in params [:picture :filename]))]
+    (when tempfile
+      (io/copy tempfile (io/file (str rootpath "img" (java.io.File/separator) name "." fileext))))
     (insert-recipe db {:name name, :intro intro, :description description, :tip tip})
     (save-new-ingredients ingredients)
     (save-new-tags tags)

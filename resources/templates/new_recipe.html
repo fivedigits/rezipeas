@@ -42,17 +42,19 @@
       <h1 id="title">Neues Rezept</h1>
     </header>
     <main>
-      <form action="/recipies/new" method="post">
+      <form action="/recipies/new" method="post" enctype="multipart/form-data">
 	<input type="text" placeholder="Name des Rezepts" name="name" required/>
         <textarea name="intro" placeholder="Einleitende Worte" required></textarea>
+	<input name="picture" type="file" accept="image/jpeg,image/png">
 	<div id="tags">
 	  <button type="button" onclick="newTag()">+ Schlagwort</button>
 	  <button type="button" onclick="rmTag()">- Schlagwort</button>
 	  <input class="tag" name="tag" type="text" placeholder="Schlagwort" required/>
 	</div>
 	<div>
-	  <h4>Portionen</h4>
+	  <label>Portionen
 	  <input name="portions" type="number" step="1.0" value="4" required/>
+	  </label>
 	</div>
         <div id="ingredients">
           <button type="button" onclick="newIngredient()">+ Zutat</button>
