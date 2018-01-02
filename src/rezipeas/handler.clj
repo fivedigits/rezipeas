@@ -64,8 +64,11 @@
   (GET "/recipies/new" [] (new-recipe))
   (GET "/recipies/:id" [id] (show-recipe id))
   (POST "/recipies/new" req (save-new-recipe (:params req)))
+  (route/files "/img/" {:root (str rootpath "img" (java.io.File/separator))})
   (route/not-found "Not Found"))
 
 (def app
   ;; enable anti-forgery later
-  (wrap-defaults app-routes (assoc-in site-defaults [:security :anti-forgery] false)))
+  (wrap-defaults app-routes
+                 (-> site-defaults
+                     (assoc-in [:security :anti-forgery] false))))

@@ -2,8 +2,12 @@
   (:require [hugsql.core :as hug])
   (:gen-class))
 
+(def rootpath (str (. System getProperty "user.dir") (java.io.File/separator)))
+
+(def dbname "kochbuch.db")
+
 (def db {:dbtype "sqlite"
-         :dbname (str (. System getProperty "user.dir") (java.io.File/separator) "/kochbuch.db")})
+         :dbname (str rootpath "kochbuch.db")})
 
 (hug/def-db-fns "db-setup.sql")
 (hug/def-db-fns "selects.sql")
