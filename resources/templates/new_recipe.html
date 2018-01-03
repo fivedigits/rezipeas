@@ -4,6 +4,7 @@
     <title>Neues Rezept</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/assets/new.css">
+    <link rel="stylesheet" href="/assets/nav.css">
     <script>
       function newIngredient() {
           var ings = document.getElementsByClassName("ingredient");
@@ -42,8 +43,9 @@
   <body>
     <main>
       <header>
-	<h1 id="title">Neues Rezept</h1>
+	nav bar goes here
       </header>
+      <h1 id="title">Neues Rezept</h1>
       <form action="/recipies/new" method="post" enctype="multipart/form-data">
 	<input id="name-form" type="text" placeholder="Name des Rezepts" name="name" required/>
 	<br>

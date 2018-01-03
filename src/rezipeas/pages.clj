@@ -2,20 +2,21 @@
   (:require [net.cgrand.enlive-html :as enlive]
             [rezipeas.sql :refer :all]))
 
-(enlive/deftemplate new-recipe "templates/new_recipe.html"
-  [])
-
 (enlive/defsnippet tag "templates/recipe.html"
-  [:#tags]
+  [:.tag]
   [tag]
   [:span] (enlive/content (:name tag)))
 
 (enlive/defsnippet ingredient "templates/recipe.html"
-  [:#ingredients]
+  [:.ingredient]
   [ing]
   [:.ingredient [:.quantity]] (enlive/content (str (:quantity ing)))
   [:.ingredient [:.unit]] (enlive/content (:unit ing))
   [:.ingredient [:.name]] (enlive/content (:name ing)))
+
+(enlive/defsnippet nav-bar "templates/recipe.html"
+  [:header]
+  [])
 
 (enlive/deftemplate recipe-view "templates/recipe.html"
   [recipe tags ingredients]
@@ -29,20 +30,24 @@
                    (map ingredient ingredients))
   [:#description] (enlive/content (:description recipe))
   [:#tip] (enlive/content (:tip recipe)))
-   
+
+(enlive/deftemplate new-recipe "templates/new_recipe.html"
+  []
+  [:header] (enlive/content (nav-bar)))
 
 (enlive/defsnippet list-item "templates/list.html"
-  [:#list]
+  [:.list-item]
   [name hrefpre id]
-  [:li [:a]] (enlive/do->
+  [:a] (enlive/do->
         (enlive/content name)
         (enlive/set-attr :href (str hrefpre id))))
 
 (enlive/deftemplate list-view "templates/list.html"
   [title hrefpre items]
   [:title] (enlive/content title)
-  [:.title] (enlive/content title)
-  [:ul#list] (enlive/content
+  [:header] (enlive/content (nav-bar))
+  [:#title] (enlive/content title)
+  [:#list] (enlive/content
               (map
                #(list-item (:name %) hrefpre (:id %))
                items)))
