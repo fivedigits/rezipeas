@@ -68,7 +68,7 @@
       
 (defroutes app-routes
   (GET "/" [] (redirect "/recipies/new"))
-  (GET "/search" [] (show-search-result))
+  (GET "/search" [term tags] (show-search-result term tags))
   (GET "/recipies" [] (show-all-recipies))
   (GET "/recipies/new" [] (new-recipe))
   (GET "/recipies/:id" [id] (show-recipe id))

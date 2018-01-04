@@ -54,12 +54,12 @@ FROM tags JOIN tagrec
 ON tags.id = tagrec.tag_id
 WHERE tagrec.rec_id = :rec_id;
 
--- :name get-recipies-by-tag-list
+-- :name get-recipies-by-tags-n-term
 -- :command :query
 -- :doc Get list of all recipies which match all given tags in :ids, :num-ids must be length of :ids. Also does full-text search for :term.
 SELECT * FROM recipies
 WHERE
-:num-ids = ifnull(
+:num_ids = ifnull(
       (SELECT COUNT(rec_id) FROM tagrec
       WHERE tag_id in (:v*:ids)
       AND rec_id = recipies.id

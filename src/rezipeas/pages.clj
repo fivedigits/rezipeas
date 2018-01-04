@@ -2,6 +2,17 @@
   (:require [net.cgrand.enlive-html :as enlive]
             [rezipeas.sql :refer :all]))
 
+(enlive/defsnippet tag-checkbox "templates/search.html"
+  [:.tag-checkbox]
+  [tag]
+  [:.tag-checkbox] (enlive/set-attr :value (:id tag))
+  [:.tag-checkbox] (enlive/content (:name tag)))
+
+(enlive/deftemplate search-mask "templates/search.html"
+  [tags]
+  [:#tags] (enlive/content
+            (map tag-checkbox tags)))
+
 (enlive/defsnippet tag "templates/recipe.html"
   [:.tag]
   [tag]
@@ -74,9 +85,10 @@
         ingredients (get-rec-ingredients db {:rec_id rec_id})]
     (recipe-view recipe tags ingredients)))
 
-(defn show-search-result []
-  """Returns the page displaying all recipies which match all given tags."""
-  (let [recipies (get-recipies-by-tag-list db {:num-ids 0 :ids [0] :term "Auflaufform"})]
-    (list-view "Suchresultate" "/recipies/" recipies)))
-
+(defn show-search-result [term tags]
+  """Returns the page displaying all recipies which match all given tags or a search mask, if no args where given."""
+  (if (and (nil? term) (empty? tags))
+    (search-mask (get-tags db))
+    (let [recipies (get-recipies-by-tags-n-term db {:num_ids (count tags) :ids tags :term term})]
+      (list-view "Suchergebnisse" "/recipies/" recipies))))
   
