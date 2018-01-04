@@ -54,4 +54,23 @@ FROM tags JOIN tagrec
 ON tags.id = tagrec.tag_id
 WHERE tagrec.rec_id = :rec_id;
 
--- write some query to get recipe by full-text search and tags
+-- :name get-recipies-by-tag-list
+-- :command :query
+-- :doc Get list of all recipies which match all given tags in :ids, :num-ids must be length of :ids
+SELECT * FROM recipies
+WHERE
+:num-ids = ifnull(
+      (SELECT COUNT(rec_id) FROM tagrec
+      WHERE tag_id in (:v*:ids)
+      AND rec_id = recipies.id
+      GROUP BY rec_id), 0)
+AND
+(recipies.id in (
+    SELECT recing.rec_id
+    FROM ingredients JOIN recing
+    ON recing.ing_id = ingredients.id
+    WHERE instr(ingredients.name, :term) > 0)
+ OR instr(recipies.name, :term) > 0
+ OR instr(recipies.intro, :term) > 0
+ OR instr(recipies.description, :term) > 0
+ OR instr(recipies.tip, :term) > 0);

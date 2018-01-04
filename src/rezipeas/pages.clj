@@ -74,4 +74,9 @@
         ingredients (get-rec-ingredients db {:rec_id rec_id})]
     (recipe-view recipe tags ingredients)))
 
+(defn show-search-result []
+  """Returns the page displaying all recipies which match all given tags."""
+  (let [recipies (get-recipies-by-tag-list db {:num-ids 0 :ids [0] :term "Auflaufform"})]
+    (list-view "Suchresultate" "/recipies/" recipies)))
+
   
