@@ -56,7 +56,7 @@ WHERE tagrec.rec_id = :rec_id;
 
 -- :name get-recipies-by-tag-list
 -- :command :query
--- :doc Get list of all recipies which match all given tags in :ids, :num-ids must be length of :ids
+-- :doc Get list of all recipies which match all given tags in :ids, :num-ids must be length of :ids. Also does full-text search for :term.
 SELECT * FROM recipies
 WHERE
 :num-ids = ifnull(
@@ -73,4 +73,5 @@ AND
  OR instr(recipies.name, :term) > 0
  OR instr(recipies.intro, :term) > 0
  OR instr(recipies.description, :term) > 0
- OR instr(recipies.tip, :term) > 0);
+ OR instr(recipies.tip, :term) > 0)
+ORDER BY recipies.name;
