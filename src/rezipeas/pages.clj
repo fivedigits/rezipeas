@@ -1,6 +1,11 @@
 (ns rezipeas.pages
   (:require [net.cgrand.enlive-html :as enlive]
+            [rezipeas.sanitize :refer [prepare-quantity, prepare-unit]]
             [rezipeas.sql :refer :all]))
+
+(enlive/defsnippet nav-bar "templates/recipe.html"
+  [:header]
+  [])
 
 (enlive/defsnippet tag-checkbox "templates/search.html"
   [:.tag-checkbox]
@@ -10,6 +15,7 @@
 
 (enlive/deftemplate search-mask "templates/search.html"
   [tags]
+  [:header] (enlive/content (nav-bar))
   [:#tags] (enlive/content
             (map tag-checkbox tags)))
 
@@ -20,14 +26,10 @@
 
 (enlive/defsnippet ingredient "templates/recipe.html"
   [:.ingredient]
-  [ing]
-  [:.ingredient [:.quantity]] (enlive/content (str (:quantity ing)))
-  [:.ingredient [:.unit]] (enlive/content (:unit ing))
+  [portions ing]
+  [:.ingredient [:.quantity]] (enlive/content (prepare-quantity (:quantity ing) (:unit ing) portions))
+  [:.ingredient [:.unit]] (enlive/content (prepare-unit (:unit ing)))
   [:.ingredient [:.name]] (enlive/content (:name ing)))
-
-(enlive/defsnippet nav-bar "templates/recipe.html"
-  [:header]
-  [])
 
 (enlive/deftemplate recipe-view "templates/recipe.html"
   [recipe tags ingredients]
@@ -38,7 +40,7 @@
   [:#tags] (enlive/content
             (map tag tags))
   [:#ingredients] (enlive/content
-                   (map ingredient ingredients))
+                   (map (partial ingredient (:portions recipe)) ingredients))
   [:#description] (enlive/content (:description recipe))
   [:#tip] (enlive/content (:tip recipe)))
 

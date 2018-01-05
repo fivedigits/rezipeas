@@ -1,6 +1,7 @@
 (ns rezipeas.sanitize
   (:require [clojure.string :refer [capitalize, trim, split]]
-            [clojure.edn :as edn]))
+            [clojure.edn :as edn]
+            [clojure.pprint :as pretty]))
 
 (defn wrap-and-sanitize [fun object]
   """Wraps single objects in a list and returns the map of fun."""
@@ -35,3 +36,19 @@
   (-> filename
        (split (re-pattern "\\."))
        (last)))
+
+(defn prepare-quantity [quantity unit portions]
+  """Prepares and formats the quantity for output by multiplying by
+     portions and limiting the number of decimal points to 2."""
+  (if (= "etwas" unit)
+    ""
+    (let [value (* quantity portions)]
+      (if (= value (Math/floor value))
+        (pretty/cl-format nil "~d" (int value))
+        (pretty/cl-format nil "~,2f" value)))))
+
+(defn prepare-unit [unit]
+  """Prepares and formats the unit for output."""
+  (if (= "Stück" unit)
+    ""
+    unit))

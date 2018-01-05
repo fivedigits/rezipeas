@@ -62,7 +62,8 @@
     (save-new-ingredients ingredients)
     (save-new-tags tags)
     (let [rec_id (:id (first (get-rec-id db {:name name})))]
-      (save-rec-ing-relations rec_id ingredients quantities units portions)
+      ;; need to cast portions to double, because hugsql does not convert ratios to reals
+      (save-rec-ing-relations rec_id ingredients quantities units (double portions))
       (save-tag-rec-relations rec_id tags)
       (redirect (str "/recipies/" rec_id)))))
       

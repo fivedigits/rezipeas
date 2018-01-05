@@ -2,14 +2,19 @@
 <html>
   <head>
     <title>Rezeptsuche</title>
+    <link rel="stylesheet" href="/assets/search.css">
+    <link rel="stylesheet" href="/assets/nav.css">
   </head>
   <body>
+    <header>
+    </header>
+    <h1>Rezeptsuche</h1>
     <form action="/search" method="GET">
-      <input type="text" name="term" placeholder="Volltextsuche"/>
+      <input id="fulltext" type="text" name="term" placeholder="Volltextsuche"/>
       <div id="tags">
 	<input class="tag-checkbox" type="checkbox" name="tags" value="#">Tag</input>
       </div>
-      <input type="submit" value="Suche">
+      <input id="submit" type="submit" value="Suche">
     </form>
   </body>
 </html>
