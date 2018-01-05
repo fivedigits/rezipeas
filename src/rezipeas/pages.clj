@@ -8,10 +8,10 @@
   [])
 
 (enlive/defsnippet tag-checkbox "templates/search.html"
-  [:.tag-checkbox]
+  [:.stupid-checkbox-container]
   [tag]
   [:.tag-checkbox] (enlive/set-attr :value (:id tag))
-  [:.tag-checkbox] (enlive/content (:name tag)))
+  [:.tag-label] (enlive/content (:name tag)))
 
 (enlive/deftemplate search-mask "templates/search.html"
   [tags]
