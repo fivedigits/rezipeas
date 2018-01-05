@@ -37,6 +37,16 @@ body {
     padding-right: 0.5em;
 }
 
+#portions-toggles {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+#portions-display {
+    display: inline-block;
+    padding: 1em;
+}
+
 #ingredients {
     text-align: left;
     display: grid;

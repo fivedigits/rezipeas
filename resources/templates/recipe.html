@@ -5,6 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/assets/recipe.css">
     <link rel="stylesheet" href="/assets/nav.css">
+    <script>
+      function incPortions () {
+          var portions = Number(document.getElementById("portions-display").textContent);
+          var portions_new = portions + 1; 
+          var ings = document.getElementsByClassName("quantity");
+          var i;
+          for (i = 0; i < ings.length; i++) {
+	      var new_quant = Number(ings[i].textContent) * portions_new / portions;
+              ings[i].textContent = Math.round(new_quant * 100) / 100;
+	  }
+          document.getElementById("portions-display").textContent = portions_new;
+      }
+      function decPortions () {
+          var portions = Number(document.getElementById("portions-display").textContent);
+	  if (portions > 1) {
+              var portions_new = portions - 1; 
+              var ings = document.getElementsByClassName("quantity");
+              var i;
+              for (i = 0; i < ings.length; i++) {
+	          var new_quant = Number(ings[i].textContent) * portions_new / portions;
+                  ings[i].textContent = Math.round(new_quant * 100) / 100;
+	      }
+              document.getElementById("portions-display").textContent = portions_new;
+	  }
+      }
+    </script>
   </head>
   <body>
     <header>
@@ -25,6 +51,14 @@
 	<p id="intro">Einleitung</p>
       </div>
       <img id="picture" src="#" alt="Ein Bild des Gerichts">
+    </div>
+    <div id="portions-toggles">
+      <span>Portionen:</span>
+      <div id="portions-display">
+	4
+      </div>
+      <button type="button" onclick="incPortions();">+</button>
+      <button type="button" onclick="decPortions();">-</button>
     </div>
     <h2 class="heading">Zutaten</h3>
     <div id="ingredients">

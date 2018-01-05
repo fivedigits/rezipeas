@@ -39,6 +39,7 @@
   [:#intro] (enlive/content (:intro recipe))
   [:#tags] (enlive/content
             (map tag tags))
+  [:#portions-display] (enlive/content (str (:portions recipe)))
   [:#ingredients] (enlive/content
                    (map (partial ingredient (:portions recipe)) ingredients))
   [:#description] (enlive/content (:description recipe))
