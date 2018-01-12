@@ -60,6 +60,8 @@
 
 (enlive/deftemplate edit-recipe "templates/new_recipe.html"
   [recipe]
+  [:title] (enlive/content "Rezept bearbeiten")
+  [:#title] (enlive/content (str "Rezept bearbeiten: " (:name recipe)))
   [:header] (enlive/content (nav-bar))
   [:#nav-bar] (enlive/append (hidden-recipe-btn recipe "/recipies/delete/" "rubbish.png"))
   [:#name-form] (enlive/set-attr :value (:name recipe))
