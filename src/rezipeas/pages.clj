@@ -58,6 +58,16 @@
   []
   [:header] (enlive/content (nav-bar)))
 
+(enlive/deftemplate edit-recipe "templates/new_recipe.html"
+  [recipe]
+  [:header] (enlive/content (nav-bar))
+  [:#nav-bar] (enlive/append (hidden-recipe-btn recipe "/recipies/delete/" "rubbish.png"))
+  [:#name-form] (enlive/set-attr :value (:name recipe))
+  [:#intro-form] (enlive/content (:intro recipe))
+  [:#desc-form] (enlive/content (:description recipe))
+  [:#tip-form] (enlive/content (:tip recipe)))
+
+
 (enlive/defsnippet list-item "templates/list.html"
   [:.list-item]
   [name hrefpre id]
@@ -88,6 +98,11 @@
 (defn new-recipe-page []
   """Returns the page containing the form for new recipies."""
   (new-recipe))
+
+(defn edit-recipe-page[id]
+  """Returns the pre-filled edit page for recipe with given id."""
+  (let [recipe (first (get-rec-by-id db {:id id}))]
+    (edit-recipe recipe)))
 
 (defn show-recipe [id]
   """Returns the page displaying the recipe with given id."""

@@ -73,6 +73,7 @@
   (GET "/recipies" [] (show-all-recipies))
   (GET "/recipies/new" [] (new-recipe))
   (GET "/recipies/:id" [id] (show-recipe id))
+  (GET "/recipies/edit/:id" [id] (edit-recipe-page id))
   (POST "/recipies/new" req (save-new-recipe (:params req)))
   (route/files "/img/" {:root (str rootpath "img" (java.io.File/separator))})
   (route/resources "/assets/")
