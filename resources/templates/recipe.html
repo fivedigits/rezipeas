@@ -30,7 +30,7 @@
               document.getElementById("portions-display").textContent = portions_new;
 	  }
       }
-    </script>
+      </script>
   </head>
   <body>
     <header>
@@ -38,7 +38,22 @@
 	<a class="nav-item" href="/recipies"><img width="100%" src="/assets/book.png"></a>
 	<a class="nav-item" href="/recipies/new"><img width="100%" src="/assets/plus.png"></a>
 	<a class="nav-item" href="/search"><img width="100%" src="/assets/search.png"></a>
-	<img class="nav-item nav-button" src="/assets/external.png"/>
+	<script>
+	function toggleMenu () {
+	    var hides = document.getElementsByClassName("hideable");
+	    var i;
+	    for (i = 0; i < hides.length; i++) {
+	        if (hides[i].style.display != "inline-block") {
+		    hides[i].style.display = "inline-block";
+	        } else {
+		    hides[i].style.display = "none";
+	        }
+	    }
+	}
+	</script>
+	<img class="nav-item nav-button" onclick="toggleMenu()" width="100%" src="/assets/external.png"/>
+	<a id="edit-link" class="nav-item hideable" href="#"><img width="100%" src="/assets/gear.png"></a>
+	<a id="delete-link" class="nav-item hideable" href="#"><img width="100%" src="/assets/rubbish.png"></a>
       </div>
     </header>
     <main>

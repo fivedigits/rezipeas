@@ -1,0 +1,28 @@
+body {
+    width: 980px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#tags {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.stupid-checkbox-container {
+    vertical-align: middle;
+}
+
+.tag-checkbox + .tag-label {
+    display: inline;
+    vertical-align: middle;
+    margin: 0.5em;
+}
+
+#fulltext {
+    margin: 0.5em;
+}
+
+#submit {
+    margin: 0.5em;
+}

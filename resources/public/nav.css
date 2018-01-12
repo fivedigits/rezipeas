@@ -1,0 +1,24 @@
+#nav-bar {
+    border-style: solid;
+    border-radius: 2em;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    margin-left: auto;
+    margin-right: 0;
+    padding: 0.5em;
+    width: 40%;
+    grid-template-columns: 25% 25% 25% 25%;
+}
+
+.nav-item {
+    width: 25%;
+}
+
+.nav-button {
+    cursor: pointer;
+}
+
+.hideable {
+    display: none;
+}
