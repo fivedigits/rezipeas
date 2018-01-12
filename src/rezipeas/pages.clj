@@ -4,8 +4,15 @@
             [rezipeas.sql :refer :all]))
 
 (enlive/defsnippet nav-bar "templates/recipe.html"
-  [:header]
+  [:#nav-bar]
   [])
+
+(enlive/defsnippet hidden-recipe-btn "templates/recipe.html"
+  [:#first-nav]
+  [recipe url icon]
+  [:#first-nav] (enlive/set-attr :href (str url (:id recipe)))
+  [:#first-nav] (enlive/add-class "hideable")
+  [:#first-nav :> :img] (enlive/set-attr :src (str "/assets/" icon)))
 
 (enlive/defsnippet tag-checkbox "templates/search.html"
   [:.stupid-checkbox-container]
@@ -35,6 +42,8 @@
   [recipe tags ingredients]
   [:title] (enlive/content (:name recipe))
   [:#title] (enlive/content (:name recipe))
+  [:#nav-bar] (enlive/append (hidden-recipe-btn recipe "/recipies/edit/" "gear.png"))
+  [:#nav-bar] (enlive/append (hidden-recipe-btn recipe "/recipies/delete/" "rubbish.png"))
   [:#picture] (enlive/set-attr :src (if (:image_url recipe) (str "/img/" (:image_url recipe)) "/assets/default.jpg"))
   [:#intro] (enlive/content (:intro recipe))
   [:#tags] (enlive/content
