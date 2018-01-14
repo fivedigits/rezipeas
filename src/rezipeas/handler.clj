@@ -101,7 +101,9 @@
       (delete-tagrec tx {:rec_id id})
       (delete-recing tx {:rec_id id})
       (save-rec-ing-relations tx id ingredients quantities units (double portions))
-      (save-tag-rec-relations tx id tags))
+      (save-tag-rec-relations tx id tags)
+      (delete-orphan-tags tx)
+      (delete-orphan-ings tx))
     (redirect (str "/recipies/" id))))
 
 (defn delete-recipe [id]
