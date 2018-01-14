@@ -12,6 +12,7 @@
 (hug/def-db-fns "db-setup.sql")
 (hug/def-db-fns "selects.sql")
 (hug/def-db-fns "inserts.sql")
+(hug/def-db-fns "updates.sql")
 
 (defn db-setup []
   """Creates all tables, if not existent."""

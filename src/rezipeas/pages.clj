@@ -76,6 +76,7 @@
   [:#title] (enlive/content (str "Rezept bearbeiten: " (:name recipe)))
   [:header] (enlive/content (nav-bar))
   [:#nav-bar] (enlive/append (hidden-recipe-btn recipe "/recipies/delete/" "rubbish.png"))
+  [:#input-form] (enlive/set-attr :action (str "/recipies/edit/" (:id recipe)))
   [:#name-form] (enlive/set-attr :value (:name recipe))
   [:#intro-form] (enlive/content (:intro recipe))
   [:#tags] (enlive/content

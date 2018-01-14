@@ -66,6 +66,33 @@
       (save-rec-ing-relations rec_id ingredients quantities units (double portions))
       (save-tag-rec-relations rec_id tags)
       (redirect (str "/recipies/" rec_id)))))
+
+(defn save-edit-recipe [id params]
+  """Updates database entries for recipe with given id and params."""
+  (let [name (:name params)
+        ingredients (sanitize-ingredients (:ingredient params))
+        quantities (sanitize-quantities (:quantity params))
+        units (sanitize-units (:unit params))
+        intro (:intro params)
+        tip (let [tip (:tip params)] (if tip tip ""))
+        description (:description params)
+        portions (sanitize-portions (:portions params))
+        tags (sanitize-tags (:tag params))
+        file? (not (empty? (get-in params [:picture :filename])))
+        tempfile (get-in params [:picture :tempfile])
+        filename (if file? 
+                   (str name (get-file-extension (get-in params [:picture :filename])))
+                   nil)]
+    (when file?
+      (io/copy tempfile
+               (io/file
+                (str
+                 rootpath
+                 "img"
+                 (java.io.File/separator)
+                 filename))))
+    (change-recipe db (assoc params :id id :image_url filename))
+    (redirect (str "/recipies/" id))))
       
 (defroutes app-routes
   (GET "/" [] (redirect "/recipies/new"))
@@ -74,6 +101,7 @@
   (GET "/recipies/new" [] (new-recipe))
   (GET "/recipies/:id" [id] (show-recipe id))
   (GET "/recipies/edit/:id" [id] (edit-recipe-page id))
+  (POST "/recipies/edit/:id" [id & params] (save-edit-recipe id params))
   (POST "/recipies/new" req (save-new-recipe (:params req)))
   (route/files "/img/" {:root (str rootpath "img" (java.io.File/separator))})
   (route/resources "/assets/")
