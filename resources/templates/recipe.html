@@ -13,7 +13,9 @@
           var i;
           for (i = 0; i < ings.length; i++) {
 	      var new_quant = Number(ings[i].textContent) * portions_new / portions;
-              ings[i].textContent = Math.round(new_quant * 100) / 100;
+	      if (new_quant != 0) {
+                  ings[i].textContent = Math.round(new_quant * 100) / 100;
+	      }
 	  }
           document.getElementById("portions-display").textContent = portions_new;
       }
@@ -25,7 +27,9 @@
               var i;
               for (i = 0; i < ings.length; i++) {
 	          var new_quant = Number(ings[i].textContent) * portions_new / portions;
-                  ings[i].textContent = Math.round(new_quant * 100) / 100;
+	          if (new_quant != 0) {
+                      ings[i].textContent = Math.round(new_quant * 100) / 100;
+	          }
 	      }
               document.getElementById("portions-display").textContent = portions_new;
 	  }
