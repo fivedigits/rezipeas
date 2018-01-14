@@ -92,6 +92,12 @@
                  (java.io.File/separator)
                  filename))))
     (change-recipe db (assoc params :id id :image_url filename))
+    (save-new-ingredients ingredients)
+    (save-new-tags tags)
+    (delete-tagrec db {:rec_id id})
+    (delete-recing db {:rec_id id})
+    (save-rec-ing-relations id ingredients quantities units (double portions))
+    (save-tag-rec-relations id tags)
     (redirect (str "/recipies/" id))))
       
 (defroutes app-routes

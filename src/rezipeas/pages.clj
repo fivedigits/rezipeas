@@ -81,6 +81,7 @@
   [:#intro-form] (enlive/content (:intro recipe))
   [:#tags] (enlive/content
             (map tag-input tags))
+  [:#portions] (enlive/set-attr :value (:portions recipe))
   [:#ingredients] (enlive/content
                    (map ing-input ingredients))
   [:#desc-form] (enlive/content (:description recipe))
