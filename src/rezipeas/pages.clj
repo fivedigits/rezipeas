@@ -65,8 +65,8 @@
 
 (enlive/defsnippet ing-input "templates/new_recipe.html"
   [:.ingredient]
-  [ingredient]
-  [:.quantity] (enlive/set-attr :value (:quantity ingredient))
+  [portions ingredient]
+  [:.quantity] (enlive/set-attr :value (* portions (:quantity ingredient)))
   [:.unit] (enlive/set-attr :value (:unit ingredient))
   [:.ingname] (enlive/set-attr :value (:name ingredient)))
 
@@ -83,7 +83,7 @@
             (map tag-input tags))
   [:#portions] (enlive/set-attr :value (:portions recipe))
   [:#ingredients] (enlive/content
-                   (map ing-input ingredients))
+                   (map (partial ing-input (:portions recipe)) ingredients))
   [:#desc-form] (enlive/content (:description recipe))
   [:#tip-form] (enlive/content (:tip recipe)))
 
