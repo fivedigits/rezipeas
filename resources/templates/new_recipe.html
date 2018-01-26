@@ -31,11 +31,13 @@
 	  }
       }
       function newTag() {
-          var tags = document.getElementsByClassName("tag");
-          var tag = tags[0];
-	  var newtag = tag.cloneNode(true);
-	  newtag.value= '';	  
           var tagform = document.getElementById("tags");
+	  var newtag = document.createElement("input");
+          newtag.classList.add("tag");
+          newtag.setAttribute("name","tag");
+          newtag.setAttribute("type", "text");
+	  newtag.setAttribute("placeholder","Schlagwort");
+	  newtag.required = true;
           tagform.appendChild(newtag);
           }
     </script>

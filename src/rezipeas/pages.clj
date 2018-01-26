@@ -129,7 +129,7 @@
   [:#merge-form] (enlive/set-attr :action (str "/tags/" (:id tag) "/merge"))
   [:#tag-list] (enlive/content
                 (map tag-option tags))
-  [:#delete-form] (enlive/set-attr :action (str "/tags/" (:id tag) "/delete")))
+  [:#delete-form] (enlive/set-attr :action (str "/tags/delete/" (:id tag))))
 
 (defn show-delete-recipe [id]
   """Returns page with delete prompt for recipies."""
