@@ -128,9 +128,10 @@
 (defn merge-tags [old new]
   """Removes old tag and replaces by new, both given by id."""
   (do
-    (with-db-transaction [tx db]
-      (delete-tag-by-id tx {:id old})
-      (merge-tag-into tx {:new-id new :old-id old}))
+    (when (not= old new)
+      (with-db-transaction [tx db]
+        (delete-tag-by-id tx {:id old})
+        (merge-tag-into tx {:new-id new :old-id old})))
     (redirect "/tags")))
     
       
