@@ -137,9 +137,9 @@
   [:title] (enlive/content (str "Schlagwort \"" (:name tag) "\" bearbeiten"))
   [:header] (enlive/content (nav-bar))
   [:#title] (enlive/content (str "Schlagwort \"" (:name tag) "\" bearbeiten"))
-  [:#rename-form] (enlive/set-attr :action (str "/tags/" (:id tag) "/rename"))
+  [:#rename-form] (enlive/set-attr :action (str "/tags/rename/" (:id tag)))
   [:#rename-input] (enlive/set-attr :value (:name tag))
-  [:#merge-form] (enlive/set-attr :action (str "/tags/" (:id tag) "/merge"))
+  [:#merge-form] (enlive/set-attr :action (str "/tags/merge/" (:id tag)))
   [:#tag-list] (enlive/content
                 (map tag-option tags))
   [:#delete-form] (enlive/set-attr :action (str "/tags/delete/" (:id tag))))
