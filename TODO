@@ -1,5 +1,3 @@
-- list all available tag inside edit form (radio?)
-- merge tags
-- edit tags
-- delete tags
+- list all available tag inside edit form (radio?) and handle tag input better
 - labels for input fields
+- renaming of ingredients
