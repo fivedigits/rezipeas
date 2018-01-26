@@ -160,7 +160,8 @@
     
       
 (defroutes app-routes
-  (GET "/" [] (redirect "/recipies/new"))
+  (GET "/" [] (redirect "/recipies/random"))
+  (GET "/recipies/random" [] (show-random-recipe))
   (GET "/search" [term tags] (show-search-result term tags))
   (GET "/recipies" [] (show-all-recipies))
   (GET "/recipies/new" [] (new-recipe-page))

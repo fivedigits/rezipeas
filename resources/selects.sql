@@ -85,3 +85,8 @@ AND
  OR instr(recipies.description, :term) > 0
  OR instr(recipies.tip, :term) > 0)
 ORDER BY recipies.name;
+
+-- :name get-random-recipe
+-- :command :query
+-- :doc Returns a random recipe
+SELECT * FROM recipies ORDER BY RANDOM() LIMIT 1;

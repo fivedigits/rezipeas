@@ -216,6 +216,13 @@
         ingredients (get-rec-ingredients db {:rec_id rec_id})]
     (recipe-view recipe tags ingredients)))
 
+(defn show-random-recipe []
+  (let [recipe (first (get-random-recipe db))
+        rec_id (:id recipe)
+        tags (get-tags-for-rec db {:rec_id rec_id})
+        ingredients (get-rec-ingredients db {:rec_id rec_id})]
+    (recipe-view recipe tags ingredients)))
+
 (defn show-search-result [term tags]
   """Returns the page displaying all recipies which match all given tags or a search mask, if no args where given."""
   (if (and (nil? term) (empty? tags))
