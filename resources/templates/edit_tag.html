@@ -3,7 +3,7 @@
   <head>
     <title>Neues Rezept</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/assets/new.css">
+    <link rel="stylesheet" href="/assets/edit.css">
     <link rel="stylesheet" href="/assets/nav.css">
   </head>
   <body>
@@ -11,25 +11,26 @@
       nav bar goes here
     </header>
     <main>
-      <h1 id="title">Neues Rezept</h1>
-      <form id="rename-form" action="#" method="POST">
-	<input id="rename-input" name="new-name" type="text" value="Tag" required/>
-	<input type="submit" value="Umbenennen">
-      </form>
-      <form id="merge-form" action="#" method="POST">
-	<label>Ersetzen durch:
+      <h1 id="title">Placeholder Title</h1>
+      <div class="form-container">
+	<form id="rename-form" action="#" method="POST">
+	  <h3>Umbenennen</h3>
+	  <input id="rename-input" name="new-name" type="text" value="Tag" required/>
+	  <input type="submit" value="Umbenennen">
+	</form>
+	<form id="merge-form" action="#" method="POST">
+	  <h3>Ersetzen durch:</h3>
 	  <select name="merge-id" id="tag-list" size="5" required>
 	    <option class="tag-option" value="Some other tag">Schlagwort</option>
 	  </select>
-	</datalist>
-	<input type="submit" value="Ersetzen">
-      </form>
-      <form id="delete-form" action="#" method="GET">
-	<label>
-	  Schlagwort löschen?
-	  <input id="delete-input" type="submit" value="Löschen">
-	</label>
-      </form>
+	  <input type="submit" value="Ersetzen">
+	</form>
+	<form id="delete-form" action="#" method="GET">
+	    <h3>Löschen?</h3>
+	    <input id="delete-input" type="submit" value="Löschen">
+	  </label>
+	</form>
+      </div>
     </main>
   </body>
 </html>
