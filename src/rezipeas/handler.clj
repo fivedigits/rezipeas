@@ -124,6 +124,14 @@
     (with-db-transaction [tx db]
       (rename-tag-with-id tx {:id id :name name}))
     (redirect "/tags")))
+
+(defn merge-tags [old new]
+  """Removes old tag and replaces by new, both given by id."""
+  (do
+    (with-db-transaction [tx db]
+      (delete-tag-by-id tx {:id old})
+      (merge-tag-into tx {:new-id new :old-id old}))
+    (redirect "/tags")))
     
       
 (defroutes app-routes
@@ -141,6 +149,7 @@
   (POST "/recipies/edit/:id" [id & params] (save-edit-recipe id params))
   (POST "/recipies/new" req (save-new-recipe (:params req)))
   (POST "/tags/:id/rename" [id & params] (rename-tag id (:new-name params)))
+  (POST "/tags/:id/merge" [id & params] (merge-tags id (:merge-id params)))
   (route/files "/img/" {:root (str rootpath "img" (java.io.File/separator))})
   (route/resources "/assets/")
   (route/not-found "Not Found"))
