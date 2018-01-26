@@ -117,6 +117,13 @@
       (delete-orphan-tags tx)
       (delete-orphan-ings tx))
     (redirect "/")))
+
+(defn rename-tag [id name]
+  """Renames the given tag, if the name is not yet in the database."""
+  (do
+    (with-db-transaction [tx db]
+      (rename-tag-with-id tx {:id id :name name}))
+    (redirect "/tags")))
     
       
 (defroutes app-routes
@@ -127,9 +134,13 @@
   (GET "/recipies/:id" [id] (show-recipe id))
   (GET "/recipies/edit/:id" [id] (edit-recipe-page id))
   (GET "/recipies/delete/:id" [id] (show-delete-recipe id))
+  (GET "/tags" [] (show-all-tags))
+  (GET "/tags/:id" [id] (show-edit-tag id))
+  (GET "/ingredients" [] (show-all-ingredients))
   (POST "/recipies/delete/:id" [id] (delete-recipe id))
   (POST "/recipies/edit/:id" [id & params] (save-edit-recipe id params))
   (POST "/recipies/new" req (save-new-recipe (:params req)))
+  (POST "/tags/:id/rename" [id & params] (rename-tag id (:new-name params)))
   (route/files "/img/" {:root (str rootpath "img" (java.io.File/separator))})
   (route/resources "/assets/")
   (route/not-found "Not Found"))

@@ -112,6 +112,25 @@
   [:#delete-prompt] (enlive/content (str (:name item) " wirklich löschen?"))
   [:#delete-form] (enlive/set-attr :action (str base_url (:id item))))
 
+(enlive/defsnippet tag-option "templates/edit_tag.html"
+  [:.tag-option]
+  [tag]
+  [:.tag-option] (enlive/do->
+                  (enlive/content (:name tag))
+                  (enlive/set-attr :value (:id tag))))
+
+(enlive/deftemplate edit-tag-view "templates/edit_tag.html"
+  [tag tags]
+  [:title] (enlive/content (str "Schlagwort \"" (:name tag) "\" bearbeiten"))
+  [:header] (enlive/content (nav-bar))
+  [:#title] (enlive/content (str "Schlagwort \"" (:name tag) "\" bearbeiten"))
+  [:#rename-form] (enlive/set-attr :action (str "/tags/" (:id tag) "/rename"))
+  [:#rename-input] (enlive/set-attr :value (:name tag))
+  [:#merge-form] (enlive/set-attr :action (str "/tags/" (:id tag) "/merge"))
+  [:#tag-list] (enlive/content
+                (map tag-option tags))
+  [:#delete-form] (enlive/set-attr :action (str "/tags/" (:id tag) "/delete")))
+
 (defn show-delete-recipe [id]
   """Returns page with delete prompt for recipies."""
   (let [recipe (first (get-rec-by-id db {:id id}))]
@@ -126,6 +145,17 @@
   """Returns <ul> of all ingredients."""
   (let [ingredients (get-ingredients db)]
     (list-view "Alle Zutaten" "/ingredients/" ingredients)))
+
+(defn show-all-tags []
+  """Returns list of all tags."""
+  (let [tags (get-tags db)]
+    (list-view "Alle Tags" "/tags/" tags)))
+
+(defn show-edit-tag [id]
+  """Returns the edit page for the given tag."""
+  (let [tag (first (get-tag-by-id db {:id id}))
+        tags (get-tags db)]
+    (edit-tag-view tag tags)))
 
 (defn new-recipe-page []
   """Returns the page containing the form for new recipies."""

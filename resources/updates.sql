@@ -8,3 +8,9 @@ SET name = :name,
     portions = :portions,
     image_url = :image_url
 WHERE id = :id;
+
+-- :name rename-tag-with-id :! :n
+-- :doc Renames tag given by id.
+UPDATE OR IGNORE tags
+SET name = :name
+WHERE id = :id;

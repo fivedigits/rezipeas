@@ -28,6 +28,11 @@ SELECT * FROM tags ORDER BY name;
 -- :doc Get id of tag given by name
 SELECT id FROM tags WHERE name = :name;
 
+-- :name get-tag-by-id
+-- :command :query
+-- :doc Get tag responding to id
+SELECT * FROM tags WHERE id = :id;
+
 -- :name get-ingredients
 -- :command :query
 -- :doc Get list of all ingredients
