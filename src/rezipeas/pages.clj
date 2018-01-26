@@ -157,6 +157,11 @@
         tags (get-tags db)]
     (edit-tag-view tag tags)))
 
+(defn show-delete-tag [id]
+  """Returns the delete page for the tag with given id."""
+  (let [tag (first (get-tag-by-id db {:id id}))]
+    (delete-view "/tags/delete/" tag)))
+
 (defn new-recipe-page []
   """Returns the page containing the form for new recipies."""
   (new-recipe))

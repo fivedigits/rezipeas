@@ -133,6 +133,14 @@
         (delete-tag-by-id tx {:id old})
         (merge-tag-into tx {:new-id new :old-id old})))
     (redirect "/tags")))
+
+(defn delete-tag [id]
+  """Removes the tag from the databse."""
+  (do
+    (with-db-transaction [tx db]
+      (delete-tag-by-id tx {:id id})
+      (delete-tagrec-by-tag tx {:tag_id id}))
+    (redirect "/tags")))
     
       
 (defroutes app-routes
@@ -145,11 +153,13 @@
   (GET "/recipies/delete/:id" [id] (show-delete-recipe id))
   (GET "/tags" [] (show-all-tags))
   (GET "/tags/:id" [id] (show-edit-tag id))
+  (GET "/tags/delete/:id" [id] (show-delete-tag id))
   (GET "/ingredients" [] (show-all-ingredients))
   (POST "/recipies/delete/:id" [id] (delete-recipe id))
   (POST "/recipies/edit/:id" [id & params] (save-edit-recipe id params))
   (POST "/recipies/new" req (save-new-recipe (:params req)))
   (POST "/tags/:id/rename" [id & params] (rename-tag id (:new-name params)))
+  (POST "/tags/delete/:id" [id] (delete-tag id))
   (POST "/tags/:id/merge" [id & params] (merge-tags id (:merge-id params)))
   (route/files "/img/" {:root (str rootpath "img" (java.io.File/separator))})
   (route/resources "/assets/")

@@ -4,6 +4,12 @@ DELETE
 FROM tagrec
 WHERE rec_id = :rec_id;
 
+-- :name delete-tagrec-by-tag :! :n
+-- :doc Delete all tag-rec relations by tag_id.
+DELETE
+FROM tagrec
+WHERE tag_id = :tag_id;
+
 -- :name delete-recing :! :n
 -- :doc Delete all rec-ing relations by rec_id.
 DELETE
