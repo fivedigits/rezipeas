@@ -43,6 +43,11 @@ SELECT * FROM ingredients ORDER BY name;
 -- :doc Get the id for a given ingredient
 SELECT id FROM ingredients WHERE name = :name;
 
+-- :name get-ing-by-id
+-- :command :query
+-- :doc Get ingredient with given name
+SELECT * FROM ingredients WHERE id = :id;
+
 -- :name get-rec-ingredients
 -- :command :query
 -- :doc Get list of all ingredients for a particular recipe

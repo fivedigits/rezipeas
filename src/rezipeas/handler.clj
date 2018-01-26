@@ -141,6 +141,22 @@
       (delete-tag-by-id tx {:id id})
       (delete-tagrec-by-tag tx {:tag_id id}))
     (redirect "/tags")))
+
+(defn rename-ingredient [id name]
+  """Renames the ingredient, if no other ingredient with the 
+     given name is known."""
+  (do
+    (with-db-transaction [tx db]
+      (rename-ing-with-id tx {:id id :name name}))
+    (redirect "/ingredients")))
+
+(defn merge-ingredients [old new]
+  """Replaces old ingredient with new one."""
+  (do
+    (with-db-transaction [tx db]
+      (merge-ing-into tx {:old_id old :new_id new})
+      (delete-ing-by-id tx {:id old}))
+    (redirect "/ingredients")))
     
       
 (defroutes app-routes
@@ -155,12 +171,15 @@
   (GET "/tags/:id" [id] (show-edit-tag id))
   (GET "/tags/delete/:id" [id] (show-delete-tag id))
   (GET "/ingredients" [] (show-all-ingredients))
+  (GET "/ingredients/:id" [id] (show-edit-ing-view id))
   (POST "/recipies/delete/:id" [id] (delete-recipe id))
   (POST "/recipies/edit/:id" [id & params] (save-edit-recipe id params))
   (POST "/recipies/new" req (save-new-recipe (:params req)))
   (POST "/tags/:id/rename" [id & params] (rename-tag id (:new-name params)))
   (POST "/tags/delete/:id" [id] (delete-tag id))
   (POST "/tags/:id/merge" [id & params] (merge-tags id (:merge-id params)))
+  (POST "/ingredients/rename/:id" [id & params] (rename-ingredient id (:new-name params)))
+  (POST "/ingredients/merge/:id" [id & params] (merge-ingredients id (:merge-id params)))
   (route/files "/img/" {:root (str rootpath "img" (java.io.File/separator))})
   (route/resources "/assets/")
   (route/not-found "Not Found"))

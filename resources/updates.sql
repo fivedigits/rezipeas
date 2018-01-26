@@ -21,3 +21,15 @@ UPDATE tagrec
 SET tag_id = :new-id
 WHERE tag_id = :old-id;
 
+-- :name rename-ing-with-id :! :n
+-- :doc Rename ingredient with given id and name.
+UPDATE OR IGNORE ingredients
+SET name = :name
+WHERE id = :id;
+
+-- :name merge-ing-into :! :n
+-- :doc Replaces all occurences of ing with :old_id by ing with :new_id
+UPDATE recing
+SET ing_id = :new_id
+WHERE ing_id = :old_id;
+

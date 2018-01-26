@@ -144,6 +144,19 @@
                 (map tag-option tags))
   [:#delete-form] (enlive/set-attr :action (str "/tags/delete/" (:id tag))))
 
+(enlive/deftemplate edit-ing-view "templates/edit_tag.html"
+  [ing ings]
+  [:title] (enlive/content (str "Zutat \"" (:name ing) "\" bearbeiten"))
+  [:header] (enlive/content (nav-bar))
+  [:#title] (enlive/content (str "Zutat \"" (:name ing) "\" bearbeiten"))
+  [:#rename-form] (enlive/set-attr :action (str "/ingredients/rename/" (:id ing)))
+  [:#rename-input] (enlive/set-attr :value (:name ing))
+  [:#merge-form] (enlive/set-attr :action (str "/ingredients/merge/" (:id ing)))
+  [:#tag-list] (enlive/content
+                (map tag-option ings))
+  [:#delete-form] (enlive/content nil))
+
+
 (defn show-delete-recipe [id]
   """Returns page with delete prompt for recipies."""
   (let [recipe (first (get-rec-by-id db {:id id}))]
@@ -174,6 +187,12 @@
   """Returns the delete page for the tag with given id."""
   (let [tag (first (get-tag-by-id db {:id id}))]
     (delete-view "/tags/delete/" tag)))
+
+(defn show-edit-ing-view [id]
+  """Returns the edit page for the given ingredient."""
+  (let [ings (get-ingredients db)
+        ing (first (get-ing-by-id db {:id id}))]
+    (edit-ing-view ing ings)))
 
 (defn new-recipe-page []
   """Returns the page containing the form for new recipies."""

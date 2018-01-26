@@ -39,3 +39,9 @@ WHERE ingredients.id NOT IN (SELECT ing_id FROM recing);
 DELETE
 FROM tags
 WHERE id = :id;
+
+-- :name delete-ing-by-id :! :n
+-- :doc Deletes ingredient with given id from ingredients.
+DELETE
+FROM ingredients
+WHERE id = :id;
