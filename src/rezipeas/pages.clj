@@ -54,9 +54,18 @@
   [:#description] (enlive/content (:description recipe))
   [:#tip] (enlive/content (:tip recipe)))
 
+(enlive/defsnippet tag-completion-entry "templates/new_recipe.html"
+  [:#tag-complete :option]
+  [tag]
+  [:option] (enlive/set-attr :value (:name tag)))
+
 (enlive/deftemplate new-recipe "templates/new_recipe.html"
-  []
-  [:header] (enlive/content (nav-bar)))
+  [tags]
+  [:header] (enlive/content (nav-bar))
+  [:#tag-complete] (enlive/content
+                    (map
+                    tag-completion-entry
+                    tags)))
 
 (enlive/defsnippet tag-input "templates/new_recipe.html"
   [:.tag]
@@ -71,7 +80,7 @@
   [:.ingname] (enlive/set-attr :value (:name ingredient)))
 
 (enlive/deftemplate edit-recipe "templates/new_recipe.html"
-  [recipe tags ingredients]
+  [recipe all_tags tags ingredients]
   [:title] (enlive/content "Rezept bearbeiten")
   [:#title] (enlive/content (str "Rezept bearbeiten: " (:name recipe)))
   [:header] (enlive/content (nav-bar))
@@ -81,6 +90,10 @@
   [:#intro-form] (enlive/content (:intro recipe))
   [:#tags] (enlive/content
             (map tag-input tags))
+  [:#tag-complete] (enlive/content
+                    (map
+                    tag-completion-entry
+                    all_tags))
   [:#portions] (enlive/set-attr :value (:portions recipe))
   [:#ingredients] (enlive/content
                    (map (partial ing-input (:portions recipe)) ingredients))
@@ -164,15 +177,17 @@
 
 (defn new-recipe-page []
   """Returns the page containing the form for new recipies."""
-  (new-recipe))
+  (let [tags (get-tags db)]
+    (new-recipe tags)))
 
 (defn edit-recipe-page[id]
   """Returns the pre-filled edit page for recipe with given id."""
   (let [recipe (first (get-rec-by-id db {:id id}))
         rec_id (:id recipe)
+        all_tags (get-tags db)
         tags (get-tags-for-rec db {:rec_id rec_id})
         ingredients (get-rec-ingredients db {:rec_id rec_id})]
-    (edit-recipe recipe tags ingredients)))
+    (edit-recipe recipe all_tags tags ingredients)))
 
 (defn show-recipe [id]
   """Returns the page displaying the recipe with given id."""

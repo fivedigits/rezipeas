@@ -37,6 +37,7 @@
           newtag.setAttribute("name","tag");
           newtag.setAttribute("type", "text");
 	  newtag.setAttribute("placeholder","Schlagwort");
+	  newtag.setAttribute("list", "tag-complete");
 	  newtag.required = true;
           tagform.appendChild(newtag);
           }
@@ -60,8 +61,11 @@
 	  <button class="toggle" type="button" onclick="rmTag()">- Schlagwort</button>
 	</div>  
 	<div id="tags">
-	  <input class="tag" name="tag" type="text" placeholder="Schlagwort" required/>
+	  <input class="tag" name="tag" type="text" list="tag-complete" placeholder="Schlagwort" required/>
 	</div>
+	<datalist id="tag-complete">
+	  <option value="Schlagwort">
+	</datalist>
 	<div id="portions">
 	  <label>Portionen
 	    <input id="portions" name="portions" type="number" step="1.0" value="4" required/>

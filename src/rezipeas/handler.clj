@@ -147,7 +147,7 @@
   (GET "/" [] (redirect "/recipies/new"))
   (GET "/search" [term tags] (show-search-result term tags))
   (GET "/recipies" [] (show-all-recipies))
-  (GET "/recipies/new" [] (new-recipe))
+  (GET "/recipies/new" [] (new-recipe-page))
   (GET "/recipies/:id" [id] (show-recipe id))
   (GET "/recipies/edit/:id" [id] (edit-recipe-page id))
   (GET "/recipies/delete/:id" [id] (show-delete-recipe id))

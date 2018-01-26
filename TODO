@@ -1,3 +1,4 @@
-- list all available tag inside edit form (radio?) and handle tag input better
 - labels for input fields
 - renaming of ingredients
+- styling the edit page for tags and ingredients
+- responsiveness for mobile and tablet
