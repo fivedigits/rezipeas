@@ -39,9 +39,9 @@
   <body>
     <header>
       <div id="nav-bar">
-	<a id="first-nav" class="nav-item" href="/recipies"><img width="100%" src="/assets/book.png"></a>
-	<a class="nav-item" href="/recipies/new"><img width="100%" src="/assets/plus.png"></a>
-	<a class="nav-item" href="/search"><img width="100%" src="/assets/search.png"></a>
+	<a id="first-nav" class="nav-item" href="/recipies"><img width="100%" src="/assets/book.svg" title="Alle Rezepte auflisten" alt="Alle Rezepte auflisten"></a>
+	<a class="nav-item" href="/recipies/new"><img width="100%" src="/assets/plus.svg" title="Neues Rezet erstellen" alt="Neues Rezet erstellen"></a>
+	<a class="nav-item" href="/search"><img width="100%" src="/assets/search.svg" title="Nach Rezepten suchen" alt="Nach Rezepten suchen"></a>
 	<script>
 	function toggleMenu () {
 	    var hides = document.getElementsByClassName("hideable");
@@ -55,7 +55,9 @@
 	    }
 	}
 	</script>
-	<img class="nav-item nav-button" onclick="toggleMenu()" width="100%" src="/assets/external.png"/>
+	<img class="nav-item nav-button" onclick="toggleMenu()" width="100%" src="/assets/external.svg" title="Weitere Optionen anzeigen" alt="Weitere Optionen anzeigen"/>
+	<a class="nav-item hideable" href="/tags"><img width="100%" src="/assets/check.svg" title="Schlagworte bearbeiten" alt="Schlagworte bearbeiten"></a>
+	<a class="nav-item hideable" href="/ingredients"><img width="100%" src="/assets/leaf.svg" title="Zutaten bearbeiten" alt="Zutaten bearbeiten"></a>
       </div>
     </header>
     <main>

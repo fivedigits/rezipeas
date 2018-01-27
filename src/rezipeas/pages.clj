@@ -9,10 +9,12 @@
 
 (enlive/defsnippet hidden-recipe-btn "templates/recipe.html"
   [:#first-nav]
-  [recipe url icon]
+  [recipe url icon alt]
   [:#first-nav] (enlive/set-attr :href (str url (:id recipe)))
   [:#first-nav] (enlive/add-class "hideable")
-  [:#first-nav :> :img] (enlive/set-attr :src (str "/assets/" icon)))
+  [:#first-nav :> :img] (enlive/set-attr :src (str "/assets/" icon))
+  [:#first-nav :> :img] (enlive/set-attr :alt alt)
+  [:#first-nav :> :img] (enlive/set-attr :title alt))
 
 (enlive/defsnippet tag-checkbox "templates/search.html"
   [:.stupid-checkbox-container]
@@ -42,8 +44,8 @@
   [recipe tags ingredients]
   [:title] (enlive/content (:name recipe))
   [:#title] (enlive/content (:name recipe))
-  [:#nav-bar] (enlive/append (hidden-recipe-btn recipe "/recipies/edit/" "gear.png"))
-  [:#nav-bar] (enlive/append (hidden-recipe-btn recipe "/recipies/delete/" "rubbish.png"))
+  [:#nav-bar] (enlive/append (hidden-recipe-btn recipe "/recipies/edit/" "gear.svg" "Rezept bearbeiten"))
+  [:#nav-bar] (enlive/append (hidden-recipe-btn recipe "/recipies/delete/" "rubbish.svg" "Rezept löschen"))
   [:#picture] (enlive/set-attr :src (if (:image_url recipe) (str "/img/" (:image_url recipe)) "/assets/default.jpg"))
   [:#intro] (enlive/content (:intro recipe))
   [:#tags] (enlive/content
@@ -84,7 +86,7 @@
   [:title] (enlive/content "Rezept bearbeiten")
   [:#title] (enlive/content (str "Rezept bearbeiten: " (:name recipe)))
   [:header] (enlive/content (nav-bar))
-  [:#nav-bar] (enlive/append (hidden-recipe-btn recipe "/recipies/delete/" "rubbish.png"))
+  [:#nav-bar] (enlive/append (hidden-recipe-btn recipe "/recipies/delete/" "rubbish.svg"))
   [:#input-form] (enlive/set-attr :action (str "/recipies/edit/" (:id recipe)))
   [:#name-form] (enlive/set-attr :value (:name recipe))
   [:#intro-form] (enlive/content (:intro recipe))
@@ -175,7 +177,7 @@
 (defn show-all-tags []
   """Returns list of all tags."""
   (let [tags (get-tags db)]
-    (list-view "Alle Tags" "/tags/" tags)))
+    (list-view "Alle Schlagworte" "/tags/" tags)))
 
 (defn show-edit-tag [id]
   """Returns the edit page for the given tag."""
