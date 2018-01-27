@@ -217,7 +217,8 @@
     (recipe-view recipe tags ingredients)))
 
 (defn show-random-recipe []
-  (let [recipe (first (get-random-recipe db))
+  (let [db_recipe (first (get-random-recipe db))
+        recipe (assoc db_recipe :name (str "Rezeptvorschlag: " (:name db_recipe)))
         rec_id (:id recipe)
         tags (get-tags-for-rec db {:rec_id rec_id})
         ingredients (get-rec-ingredients db {:rec_id rec_id})]
