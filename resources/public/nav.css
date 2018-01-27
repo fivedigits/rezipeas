@@ -1,6 +1,6 @@
 #nav-bar {
     border-style: solid;
-    border-radius: 2em;
+    border-radius: 1em;
     display: grid;
     align-items: center;
     justify-items: center;
@@ -8,11 +8,15 @@
     margin-right: 0;
     padding: 0.5em;
     width: 40%;
+    min-width: 320px;
     grid-template-columns: 25% 25% 25% 25%;
 }
 
 .nav-item {
     width: 25%;
+    min-width: 48px;
+    margin-right: 1em;
+    margin-left: 1em;
 }
 
 .nav-button {

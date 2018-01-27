@@ -54,6 +54,10 @@
   [:#ingredients] (enlive/content
                    (map (partial ingredient (:portions recipe)) ingredients))
   [:#description] (enlive/content (:description recipe))
+  [:#tip-heading] (enlive/content
+                   (if (= "" (:tip recipe))
+                     nil
+                     "Tip"))
   [:#tip] (enlive/content (:tip recipe)))
 
 (enlive/defsnippet tag-completion-entry "templates/new_recipe.html"

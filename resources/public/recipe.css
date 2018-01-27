@@ -6,14 +6,19 @@ body {
 }
 
 .container {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+}
+
+@media (max-width: 900px) {
+    .container {
+	grid-template-columns: 1fr;
+    }
 }
 
 .container-head {
     text-align: left;
-    max-width: 60%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -29,7 +34,7 @@ body {
 }
 
 #picture {
-    max-width: 30%;
+    max-height: 50vh;
 }
 
 .tag {
@@ -52,6 +57,18 @@ body {
     display: grid;
     grid-template-columns: auto auto auto;
     padding-bottom: 0.5em;
+}
+
+@media (max-width: 900px) {
+    #ingredients {
+	grid-template-columns: auto auto;
+    }
+}
+
+@media (max-width: 480px) {
+    #ingredients {
+	grid-template-columns: auto;
+    }
 }
 
 .ingredient {
