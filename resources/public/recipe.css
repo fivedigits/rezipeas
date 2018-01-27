@@ -9,6 +9,7 @@ body {
 .container {
     display: grid;
     grid-template-columns: 2fr 1fr;
+    align-items: start;
 }
 
 @media (max-width: 900px) {
@@ -36,6 +37,7 @@ body {
 
 #picture {
     max-height: 50vh;
+    margin: 1em;
 }
 
 .tag {

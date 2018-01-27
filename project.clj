@@ -1,6 +1,6 @@
-(defproject rezipeas "0.1.0-SNAPSHOT"
-  :description "FIXME: write description"
-  :url "http://example.com/FIXME"
+(defproject rezipeas "0.8.0"
+  :description "A simple web app recipe server"
+  :url "http://github.com/fivedigits/rezipeas"
   :min-lein-version "2.0.0"
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [compojure "1.5.1"]
@@ -10,8 +10,7 @@
                  [ring/ring-defaults "0.2.1"]]
   :plugins [[lein-ring "0.9.7"]]
   :ring {:handler rezipeas.handler/app
-         :nrepl {:start? true
-                 :port 9998}}
+         :port 80}
   :profiles
   {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
                         [ring/ring-mock "0.3.0"]]}})
