@@ -86,7 +86,7 @@
   [:title] (enlive/content "Rezept bearbeiten")
   [:#title] (enlive/content (str "Rezept bearbeiten: " (:name recipe)))
   [:header] (enlive/content (nav-bar))
-  [:#nav-bar] (enlive/append (hidden-recipe-btn recipe "/recipies/delete/" "rubbish.svg"))
+  [:#nav-bar] (enlive/append (hidden-recipe-btn recipe "/recipies/delete/" "rubbish.svg" "Rezept löschen"))
   [:#input-form] (enlive/set-attr :action (str "/recipies/edit/" (:id recipe)))
   [:#name-form] (enlive/set-attr :value (:name recipe))
   [:#intro-form] (enlive/content (:intro recipe))
@@ -201,7 +201,7 @@
   (let [tags (get-tags db)]
     (new-recipe tags)))
 
-(defn edit-recipe-page[id]
+(defn edit-recipe-page [id]
   """Returns the pre-filled edit page for recipe with given id."""
   (let [recipe (first (get-rec-by-id db {:id id}))
         rec_id (:id recipe)
@@ -232,4 +232,3 @@
     (search-mask (get-tags db))
     (let [recipies (get-recipies-by-tags-n-term db {:num_ids (count tags) :ids tags :term term})]
       (list-view "Suchergebnisse" "/recipies/" recipies))))
-  
