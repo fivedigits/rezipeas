@@ -5,11 +5,17 @@
     align-items: center;
     justify-items: center;
     margin-left: auto;
-    margin-right: 0;
     padding: 0.5em;
     width: 40%;
-    min-width: 320px;
+    min-width: 256px;
     grid-template-columns: 25% 25% 25% 25%;
+}
+
+@media (max-width: 480px) {
+    #nav-bar {
+	width: 90%;
+	margin-right: auto;
+    }
 }
 
 .nav-item {

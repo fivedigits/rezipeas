@@ -3,10 +3,11 @@ body {
     margin-left: auto;
     margin-right: auto;
     text-align: left;
+    padding: 1em;
 }
 
 #name-form {
-    width: 30em;
+    max-width: 100%;
 }
 
 #intro-form {
