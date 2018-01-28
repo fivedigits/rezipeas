@@ -6,6 +6,7 @@
             [rezipeas.sql :refer :all]
             [rezipeas.pages :refer :all]
             [rezipeas.sanitize :refer :all]
+            [rezipeas.config :refer :all]
             [ring.util.response :refer :all]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]))
 

@@ -1,4 +1,4 @@
-(defproject rezipeas "0.8.0"
+(defproject rezipeas "0.8.1"
   :description "A simple web app recipe server"
   :url "http://github.com/fivedigits/rezipeas"
   :min-lein-version "2.0.0"
@@ -10,7 +10,10 @@
                  [ring/ring-defaults "0.2.1"]]
   :plugins [[lein-ring "0.9.7"]]
   :ring {:handler rezipeas.handler/app
-         :port 80}
+         :nrepl {:start? true :port 9998}
+         :port 8080}
   :profiles
-  {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
+  {:prod {:ring {:port 80
+                 :stacktraces? false}}
+   :dev {:dependencies [[javax.servlet/servlet-api "2.5"]
                         [ring/ring-mock "0.3.0"]]}})

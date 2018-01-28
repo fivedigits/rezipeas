@@ -1,15 +1,7 @@
 (ns rezipeas.sql
   (:require [hugsql.core :as hug]
-            [clojure.java.io :refer [make-parents]])
+            [rezipeas.config :refer :all])
   (:gen-class))
-
-;;(def rootpath (str (. System getProperty "user.dir") (java.io.File/separator)))
-
-(def rootpath "/var/www/rezipeas/")
-
-(make-parents "/var/www/rezipeas/img/dummy.txt")
-
-(def dbname "rezipeas.db")
 
 (def db {:dbtype "sqlite"
          :dbname (str rootpath dbname)})
