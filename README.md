@@ -17,6 +17,8 @@ To start a web server for the application, run:
 
     lein ring server
 
+Alternatively, build a standalone executable jar (see below), or download it from the releases page.
+
 ## Building a standalone executable
 
 If you want to to create an executable .jar, you can run
