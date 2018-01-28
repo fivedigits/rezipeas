@@ -15,7 +15,7 @@ You will need [Leiningen][] 2.0.0 or above installed.
 
 To start a web server for the application, run:
 
-    `lein ring server`
+`lein ring server`
 
 Alternatively, build a standalone executable jar (see below), or download it from the releases page.
 
@@ -23,23 +23,23 @@ Alternatively, build a standalone executable jar (see below), or download it fro
 
 If you want to to create an executable .jar, you can run
 
-   `lein ring uberjar`
+`lein ring uberjar`
 
 If you want to run the application on port 80, use
 
-   `lein with-profiles +prod ring uberjar`
+`lein with-profiles +prod ring uberjar`
 
 Note that you will need root access to run the executable. The .jar is then located under
 
-    `target/rezipeas-X.Y.Z-standalone.jar`
+`target/rezipeas-X.Y.Z-standalone.jar`
 
 Run the file using
 
-    `java -jar rezipeas-X.Y.Z-standalone.jar`
+`java -jar rezipeas-X.Y.Z-standalone.jar`
 
 When running as root, the data will be saved under
 
-     `/var/www/rezipeas`
+`/var/www/rezipeas`
 
 ## License
 
