@@ -11,7 +11,7 @@
   :plugins [[lein-ring "0.9.7"]]
   :ring {:handler rezipeas.handler/app
          :nrepl {:start? true :port 9998}
-         :port 8080}
+         :port 3000}
   :profiles
   {:prod {:ring {:port 80
                  :stacktraces? false}}
