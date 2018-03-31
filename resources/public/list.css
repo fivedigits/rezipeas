@@ -6,24 +6,32 @@ body {
 }
 
 #list {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.list-item {
+    min-width: 20%;
+    max-width: 33%;
+    flex-basis: 48px;
+    flex-grow: 1;
+    margin-left: 2%;
+    margin-right: 2%;
+    padding: 0.5em;
 }
 
 @media (max-width: 900px) {
-    #list {
-	grid-template-columns: auto auto;
+    .list-item {
+	min-width: 40%;
+	max-width: 50%;
     }
 }
 
 @media (max-width: 480px) {
-    #list {
-	grid-template-columns: auto;
+    .list-item {
+	min-width: 90%;
+	max-width: 100%;
     }
-}
-
-.list-item {
-    padding: 0.5em;
 }
 
 a {
