@@ -46,7 +46,7 @@
   [:#title] (enlive/content (:name recipe))
   [:#nav-bar] (enlive/append (hidden-recipe-btn recipe "/recipies/edit/" "gear.svg" "Rezept bearbeiten"))
   [:#nav-bar] (enlive/append (hidden-recipe-btn recipe "/recipies/delete/" "rubbish.svg" "Rezept löschen"))
-  [:#picture] (enlive/set-attr :src (if (:image_url recipe) (str "/img/" (:image_url recipe)) "/assets/default.jpg"))
+  [:#picture-img] (enlive/set-attr :src (if (:image_url recipe) (str "/img/" (:image_url recipe)) "/assets/default.jpg"))
   [:#intro] (enlive/content (:intro recipe))
   [:#tags] (enlive/content
             (map tag tags))
