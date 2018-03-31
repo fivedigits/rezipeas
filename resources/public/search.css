@@ -6,24 +6,28 @@ body {
 }
 
 #tags {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.stupid-checkbox-container {
+    min-width: 30%;
+    max-width: 100%;
+    flex-basis: 48px;
+    flex-grow: 1;
+    vertical-align: middle;
 }
 
 @media (max-width: 900px) {
-    #tags {
-	grid-template-columns: auto auto;
+    .stupid-checkbox-container {
+	min-width: 49%;
     }
 }
 
 @media (max-width: 480px) {
-    #tags {
-	grid-template-columns: auto;
+    .stupid-checkbox-container {
+	min-width: 90%;
     }
-}
-
-.stupid-checkbox-container {
-    vertical-align: middle;
 }
 
 .tag-checkbox + .tag-label {
