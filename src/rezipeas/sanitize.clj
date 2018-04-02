@@ -19,7 +19,7 @@
 
 (defn sanitize-ingredients [ingredients]
   """Wraps single ingredients in list trims and capitalizes."""
-  (wrap-and-sanitize (comp capitalize trim) ingredients))
+  (wrap-and-sanitize trim ingredients))
 
 (defn sanitize-tags [tags]
   """Wraps single tags in list and trims whitespace."""
