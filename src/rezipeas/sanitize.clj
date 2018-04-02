@@ -11,6 +11,12 @@
     object
     (list object))))
 
+(defn wrap [object]
+  """Wraps an object in a list, if its non nil and not sequential."""
+  (if (or (empty? object) (sequential? object))
+    object
+    (list object)))
+
 (defn sanitize-ingredients [ingredients]
   """Wraps single ingredients in list trims and capitalizes."""
   (wrap-and-sanitize (comp capitalize trim) ingredients))
