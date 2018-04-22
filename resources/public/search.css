@@ -11,22 +11,23 @@ body {
 }
 
 .stupid-checkbox-container {
-    min-width: 30%;
-    max-width: 100%;
+    min-width: 25%;
+    max-width: 33%;
     flex-basis: 48px;
     flex-grow: 1;
-    vertical-align: middle;
 }
 
 @media (max-width: 900px) {
     .stupid-checkbox-container {
-	min-width: 49%;
+	min-width: 40%;
+	max-width: 50%;
     }
 }
 
 @media (max-width: 480px) {
     .stupid-checkbox-container {
 	min-width: 90%;
+	max-width: 100%;
     }
 }
 
