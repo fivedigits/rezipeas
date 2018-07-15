@@ -96,7 +96,8 @@
                  (java.io.File/separator)
                  filename))))
     (with-db-transaction [tx db]
-      (change-recipe tx (assoc params :id id :image_url filename))
+      (when file?
+        (change-recipe tx (assoc params :id id :image_url filename)))
       (save-new-ingredients tx ingredients)
       (save-new-tags tx tags)
       (delete-tagrec tx {:rec_id id})

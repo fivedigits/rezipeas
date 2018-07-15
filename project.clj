@@ -1,4 +1,4 @@
-(defproject rezipeas "0.8.2"
+(defproject rezipeas "0.8.3"
   :description "A simple web app recipe server"
   :url "http://github.com/fivedigits/rezipeas"
   :min-lein-version "2.0.0"
