@@ -5,8 +5,13 @@ SET name = :name,
     intro = :intro,
     description = :description,
     tip = :tip,
-    portions = :portions,
-    image_url = :image_url
+    portions = :portions
+WHERE id = :id;
+
+-- :name change-image-url :! :n
+-- :doc change the image url for a recipe
+UPDATE recipies
+SET image_url = :image_url
 WHERE id = :id;
 
 -- :name rename-tag-with-id :! :n

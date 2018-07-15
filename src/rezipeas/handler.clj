@@ -97,7 +97,8 @@
                  filename))))
     (with-db-transaction [tx db]
       (when file?
-        (change-recipe tx (assoc params :id id :image_url filename)))
+        (change-image-url tx (assoc params :id id :image_url filename)))
+      (change-recipe tx (assoc params :id id))
       (save-new-ingredients tx ingredients)
       (save-new-tags tx tags)
       (delete-tagrec tx {:rec_id id})
